@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>LinkedIn Banner — Primex Systems</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #1e2530;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      gap: 20px;
+    }
+    .note { font-family: Inter, sans-serif; font-size: 13px; color: #9ca3af; }
+
+    .banner {
+      width: 1128px;
+      height: 191px;
+      background: linear-gradient(135deg, #040c24 0%, #071430 35%, #0a1c44 70%, #0e2660 100%);
+      position: relative;
+      overflow: hidden;
+      font-family: 'Inter', 'Arial', sans-serif;
+    }
+
+    /* Subtle radial glow — matches hero */
+    .glow {
+      position: absolute;
+      top: -60px; right: 200px;
+      width: 500px; height: 300px;
+      background: radial-gradient(ellipse, rgba(37,99,235,.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Top accent bar */
+    .top-bar {
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, #2563eb 0%, #818cf8 60%, rgba(255,255,255,0) 100%);
+    }
+
+    /* Headline */
+    .headline {
+      position: absolute;
+      left: 240px; right: 40px;
+      top: 50%;
+      transform: translateY(-55%);
+      z-index: 2;
+      text-align: center;
+    }
+    .hl-1 { font-size: 42px; font-weight: 800; color: #ffffff; letter-spacing: -.03em; line-height: 1.15; }
+    .hl-2 { font-size: 42px; font-weight: 800; color: #60a5fa; letter-spacing: -.03em; line-height: 1.15; }
+
+    /* Bottom row */
+    .bottom-row {
+      position: absolute;
+      bottom: 14px; left: 240px; right: 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      z-index: 2;
+    }
+    .hl-tags { font-size: 11.5px; font-weight: 500; color: #ffffff; letter-spacing: .09em; text-transform: uppercase; }
+    .email-tag { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+    .email-tag svg { width: 14px; height: 14px; color: #60a5fa; flex-shrink: 0; }
+    .email-tag span { font-size: 12.5px; font-weight: 500; color: #ffffff; letter-spacing: .01em; }
+  </style>
+</head>
+<body>
+
+  <p class="note">LinkedIn banner — 1128 × 191 px &nbsp;|&nbsp; Screenshot just the banner below</p>
+
+  <div class="banner">
+    <div class="glow"></div>
+    <div class="top-bar"></div>
+
+    <!-- Right network nodes — light on dark -->
+    <svg style="position:absolute;right:0;top:0;height:191px;width:340px;pointer-events:none;" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="nodesRight" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#1e40af" stop-opacity="0"/>
+          <stop offset="100%" stop-color="#1e3a8a" stop-opacity="0.45"/>
+        </linearGradient>
+      </defs>
+      <rect width="340" height="191" fill="url(#nodesRight)"/>
+      <g stroke="#93c5fd" stroke-width="1" opacity="0.20">
+        <line x1="60"  y1="28"  x2="130" y2="52"/>
+        <line x1="130" y1="52"  x2="195" y2="22"/>
+        <line x1="195" y1="22"  x2="260" y2="48"/>
+        <line x1="260" y1="48"  x2="310" y2="82"/>
+        <line x1="310" y1="82"  x2="278" y2="135"/>
+        <line x1="278" y1="135" x2="205" y2="158"/>
+        <line x1="205" y1="158" x2="130" y2="142"/>
+        <line x1="130" y1="142" x2="68"  y2="162"/>
+        <line x1="130" y1="52"  x2="130" y2="142"/>
+        <line x1="195" y1="22"  x2="205" y2="158"/>
+        <line x1="260" y1="48"  x2="278" y2="135"/>
+        <line x1="60"  y1="28"  x2="130" y2="142"/>
+      </g>
+      <g fill="#93c5fd" opacity="0.30">
+        <circle cx="60"  cy="28"  r="5"/>
+        <circle cx="130" cy="52"  r="4"/>
+        <circle cx="195" cy="22"  r="5.5"/>
+        <circle cx="260" cy="48"  r="4"/>
+        <circle cx="310" cy="82"  r="5"/>
+        <circle cx="278" cy="135" r="4"/>
+        <circle cx="205" cy="158" r="5.5"/>
+        <circle cx="130" cy="142" r="4"/>
+        <circle cx="68"  cy="162" r="4.5"/>
+      </g>
+      <g fill="#60a5fa" opacity="0.70">
+        <circle cx="195" cy="22"  r="3"/>
+        <circle cx="310" cy="82"  r="3"/>
+        <circle cx="205" cy="158" r="3"/>
+      </g>
+    </svg>
+
+    <!-- Left edge nodes — subtle, above avatar zone -->
+    <svg style="position:absolute;left:0;top:0;height:191px;width:240px;pointer-events:none;" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="nodesLeft" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#1e3a8a" stop-opacity="0.30"/>
+          <stop offset="100%" stop-color="#1e40af" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <rect width="240" height="191" fill="url(#nodesLeft)"/>
+      <g stroke="#93c5fd" stroke-width="1" opacity="0.18">
+        <line x1="15"  y1="20"  x2="70"  y2="45"/>
+        <line x1="70"  y1="45"  x2="140" y2="18"/>
+        <line x1="15"  y1="20"  x2="45"  y2="72"/>
+        <line x1="70"  y1="45"  x2="45"  y2="72"/>
+        <line x1="140" y1="18"  x2="185" y2="58"/>
+        <line x1="45"  y1="72"  x2="115" y2="95"/>
+        <line x1="185" y1="58"  x2="115" y2="95"/>
+      </g>
+      <g fill="#93c5fd" opacity="0.28">
+        <circle cx="15"  cy="20"  r="4.5"/>
+        <circle cx="70"  cy="45"  r="3.5"/>
+        <circle cx="140" cy="18"  r="5"/>
+        <circle cx="185" cy="58"  r="3.5"/>
+        <circle cx="45"  cy="72"  r="4"/>
+        <circle cx="115" cy="95"  r="5"/>
+      </g>
+      <g fill="#60a5fa" opacity="0.65">
+        <circle cx="140" cy="18"  r="2.5"/>
+        <circle cx="115" cy="95"  r="2.5"/>
+      </g>
+    </svg>
+
+    <!-- Headline -->
+    <div class="headline">
+      <div class="hl-1">Where Healthcare Workflows</div>
+      <div class="hl-2">Meet Working Systems</div>
+    </div>
+
+    <!-- Bottom row -->
+    <div class="bottom-row">
+      <div class="hl-tags">EDI &nbsp;·&nbsp; FHIR APIs &nbsp;·&nbsp; AI Automation &nbsp;·&nbsp; CMS-0057-F Compliance</div>
+      <div class="email-tag">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253M3 12a8.959 8.959 0 0 0 .284 2.253" />
+        </svg>
+        <span>primexsystems.org</span>
+        <span style="color:rgba(255,255,255,.25);margin:0 4px;">|</span>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+        </svg>
+        <span>hello@primexsystems.org</span>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
