@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Personal LinkedIn Banner — Ajay Chaudhary</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #1e2530;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      gap: 20px;
+    }
+    .note { font-family: Inter, sans-serif; font-size: 13px; color: #9ca3af; }
+
+    .banner {
+      width: 1584px;
+      height: 396px;
+      background: linear-gradient(135deg, #040c24 0%, #071430 35%, #0a1c44 70%, #0e2660 100%);
+      position: relative;
+      overflow: hidden;
+      font-family: 'Inter', 'Arial', sans-serif;
+    }
+
+    /* Radial glow */
+    .glow-1 {
+      position: absolute;
+      top: -80px; left: 50%;
+      width: 700px; height: 500px;
+      background: radial-gradient(ellipse, rgba(37,99,235,.16) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .glow-2 {
+      position: absolute;
+      bottom: -100px; right: 200px;
+      width: 500px; height: 400px;
+      background: radial-gradient(ellipse, rgba(129,140,248,.10) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Top accent bar */
+    .top-bar {
+      position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, #2563eb 0%, #818cf8 55%, rgba(255,255,255,0) 100%);
+    }
+    /* Bottom accent bar */
+    .bottom-bar {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, #2563eb 0%, #818cf8 55%, rgba(255,255,255,0) 100%);
+    }
+
+    /* Logo — top left */
+    .logo {
+      position: absolute;
+      top: 28px; left: 40px;
+      display: flex; align-items: center; gap: 10px;
+      z-index: 2;
+    }
+    .logo img { height: 64px; width: auto; }
+    .logo-name { font-size: 24px; font-weight: 700; color: rgba(255,255,255,.90); letter-spacing: -.01em; }
+
+    /* Divider under logo */
+    .logo-rule {
+      position: absolute;
+      top: 88px; left: 40px;
+      width: 200px; height: 1px;
+      background: linear-gradient(90deg, rgba(37,99,235,.5), transparent);
+    }
+
+    /* Main content — centered in right zone */
+    .content {
+      position: absolute;
+      left: 280px; right: 60px;
+      top: 50%; transform: translateY(-50%);
+      z-index: 2;
+      text-align: center;
+    }
+    .eyebrow {
+      font-size: 17px; font-weight: 700;
+      letter-spacing: .16em; text-transform: uppercase;
+      color: #60a5fa; margin-bottom: 22px;
+    }
+    .hl-1 {
+      font-size: 68px; font-weight: 900;
+      color: #ffffff; letter-spacing: -.04em; line-height: 1.1;
+    }
+    .hl-2 {
+      font-size: 68px; font-weight: 900;
+      color: #60a5fa; letter-spacing: -.04em; line-height: 1.1;
+    }
+    .tagline {
+      margin-top: 24px;
+      font-size: 15px; font-weight: 600;
+      color: #ffffff; letter-spacing: .08em; text-transform: uppercase;
+    }
+
+    /* Left personal info block */
+    .personal {
+      position: absolute;
+      left: 40px; bottom: 36px;
+      z-index: 2;
+    }
+    .personal-name { font-size: 15px; font-weight: 700; color: rgba(255,255,255,.80); }
+    .personal-role { font-size: 11px; font-weight: 500; color: rgba(255,255,255,.40); letter-spacing: .06em; text-transform: uppercase; margin-top: 3px; }
+  </style>
+</head>
+<body>
+
+  <p class="note">Personal LinkedIn banner — 1584 × 396 px &nbsp;|&nbsp; Screenshot just the banner below</p>
+
+  <div class="banner">
+    <div class="glow-1"></div>
+    <div class="glow-2"></div>
+    <div class="top-bar"></div>
+    <div class="bottom-bar"></div>
+
+    <!-- Logo top-left -->
+    <div class="logo">
+      <img src="primex-logo.png" alt="Primex Systems" />
+      <span class="logo-name">Primex Systems</span>
+    </div>
+    <div class="logo-rule"></div>
+
+    <!-- Left side network nodes -->
+    <svg style="position:absolute;left:0;top:0;height:396px;width:290px;pointer-events:none;" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="leftFade" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#1e3a8a" stop-opacity="0.25"/>
+          <stop offset="100%" stop-color="#1e40af" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <rect width="290" height="396" fill="url(#leftFade)"/>
+      <g stroke="#93c5fd" stroke-width="1" opacity="0.15">
+        <line x1="20"  y1="40"  x2="100" y2="90"/>
+        <line x1="100" y1="90"  x2="190" y2="55"/>
+        <line x1="190" y1="55"  x2="255" y2="110"/>
+        <line x1="20"  y1="40"  x2="60"  y2="140"/>
+        <line x1="60"  y1="140" x2="100" y2="90"/>
+        <line x1="60"  y1="140" x2="155" y2="200"/>
+        <line x1="155" y1="200" x2="255" y2="110"/>
+        <line x1="155" y1="200" x2="210" y2="290"/>
+        <line x1="30"  y1="260" x2="155" y2="200"/>
+        <line x1="30"  y1="260" x2="100" y2="340"/>
+        <line x1="100" y1="340" x2="210" y2="290"/>
+        <line x1="210" y1="290" x2="270" y2="360"/>
+      </g>
+      <g fill="#93c5fd" opacity="0.25">
+        <circle cx="20"  cy="40"  r="5"/>
+        <circle cx="100" cy="90"  r="4"/>
+        <circle cx="190" cy="55"  r="6"/>
+        <circle cx="255" cy="110" r="4.5"/>
+        <circle cx="60"  cy="140" r="4"/>
+        <circle cx="155" cy="200" r="6"/>
+        <circle cx="30"  cy="260" r="4"/>
+        <circle cx="210" cy="290" r="5"/>
+        <circle cx="100" cy="340" r="4"/>
+        <circle cx="270" cy="360" r="3.5"/>
+      </g>
+      <g fill="#60a5fa" opacity="0.60">
+        <circle cx="190" cy="55"  r="3"/>
+        <circle cx="155" cy="200" r="3"/>
+        <circle cx="210" cy="290" r="3"/>
+      </g>
+    </svg>
+
+    <!-- Right side network nodes -->
+    <svg style="position:absolute;right:0;top:0;height:396px;width:380px;pointer-events:none;" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="rightFade" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#1e40af" stop-opacity="0"/>
+          <stop offset="100%" stop-color="#1e3a8a" stop-opacity="0.40"/>
+        </linearGradient>
+      </defs>
+      <rect width="380" height="396" fill="url(#rightFade)"/>
+      <g stroke="#93c5fd" stroke-width="1" opacity="0.16">
+        <line x1="80"  y1="35"  x2="175" y2="75"/>
+        <line x1="175" y1="75"  x2="260" y2="35"/>
+        <line x1="260" y1="35"  x2="345" y2="80"/>
+        <line x1="345" y1="80"  x2="370" y2="170"/>
+        <line x1="370" y1="170" x2="310" y2="240"/>
+        <line x1="310" y1="240" x2="220" y2="200"/>
+        <line x1="220" y1="200" x2="175" y2="75"/>
+        <line x1="220" y1="200" x2="250" y2="310"/>
+        <line x1="250" y1="310" x2="370" y2="170"/>
+        <line x1="90"  y1="300" x2="220" y2="200"/>
+        <line x1="90"  y1="300" x2="150" y2="370"/>
+        <line x1="150" y1="370" x2="250" y2="310"/>
+        <line x1="310" y1="240" x2="350" y2="340"/>
+      </g>
+      <g fill="#93c5fd" opacity="0.25">
+        <circle cx="80"  cy="35"  r="5"/>
+        <circle cx="175" cy="75"  r="4"/>
+        <circle cx="260" cy="35"  r="6"/>
+        <circle cx="345" cy="80"  r="4.5"/>
+        <circle cx="370" cy="170" r="5"/>
+        <circle cx="310" cy="240" r="4"/>
+        <circle cx="220" cy="200" r="6"/>
+        <circle cx="250" cy="310" r="4"/>
+        <circle cx="90"  cy="300" r="4.5"/>
+        <circle cx="150" cy="370" r="4"/>
+        <circle cx="350" cy="340" r="3.5"/>
+      </g>
+      <g fill="#60a5fa" opacity="0.60">
+        <circle cx="260" cy="35"  r="3"/>
+        <circle cx="370" cy="170" r="3"/>
+        <circle cx="220" cy="200" r="3"/>
+      </g>
+    </svg>
+
+    <!-- Main headline -->
+    <div class="content">
+      <div class="eyebrow">Healthcare Technology · 15+ Years of Hands-On Expertise</div>
+      <div class="hl-1">Automating the Workflows</div>
+      <div class="hl-2">Healthcare Depends On.</div>
+      <div class="tagline">EDI &nbsp;·&nbsp; FHIR R4 &nbsp;·&nbsp; Prior Authorization &nbsp;·&nbsp; AI-Powered Automation &nbsp;·&nbsp; CMS-0057-F</div>
+    </div>
+
+
+  </div>
+
+</body>
+</html>
