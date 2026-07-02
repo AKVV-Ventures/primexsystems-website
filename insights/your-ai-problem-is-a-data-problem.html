@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your AI Problem Is Probably a Data Problem — Primex Systems</title>
+  <meta name="description" content="Before any AI or automation initiative in healthcare operations, organizations need to ask three questions about their data. Most skip all three." />
+  <link rel="icon" type="image/png" href="../primex-logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      color: #0f172a;
+      background: #ffffff;
+    }
+    :root {
+      --navy:  #040c24;
+      --blue:  #2563eb;
+      --blue-d:#1d4ed8;
+      --s50:   #f8fafc;
+      --s100:  #f1f5f9;
+      --s200:  #e2e8f0;
+      --s400:  #94a3b8;
+      --s600:  #475569;
+      --s700:  #334155;
+      --s900:  #0f172a;
+      --muted: #3d4e63;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 64px;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--s200);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo-img { height: 28px; width: auto; }
+    .nav-name { font-size: 15px; font-weight: 800; color: var(--s900); letter-spacing: -.01em; }
+    .nav-right { display: flex; align-items: center; gap: 24px; }
+    .nav-back {
+      font-size: 13px; font-weight: 600; color: var(--s600);
+      text-decoration: none; display: flex; align-items: center; gap: 6px;
+    }
+    .nav-back:hover { color: var(--blue); }
+    .nav-cta {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 9px 18px; background: var(--blue); color: #fff;
+      font-size: 13px; font-weight: 700; border-radius: 8px;
+      text-decoration: none; transition: background .15s;
+    }
+    .nav-cta:hover { background: var(--blue-d); }
+    @media (max-width: 600px) {
+      nav { padding: 0 20px; }
+      .nav-cta { display: none; }
+    }
+
+    /* ── Article shell ── */
+    .article-hero {
+      background: var(--s50);
+      border-bottom: 1px solid var(--s200);
+      padding: 64px 24px 56px;
+      text-align: center;
+    }
+    .article-cat {
+      display: inline-block;
+      font-size: 11px; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--blue);
+      background: #eff6ff; border: 1px solid #dbeafe;
+      border-radius: 6px; padding: 4px 12px; margin-bottom: 24px;
+    }
+    .article-title {
+      font-size: clamp(1.9rem, 4vw, 2.8rem);
+      font-weight: 900; color: var(--s900);
+      letter-spacing: -.03em; line-height: 1.1;
+      max-width: 760px; margin: 0 auto 20px;
+    }
+    .article-sub {
+      font-size: 1.0625rem; color: var(--muted);
+      line-height: 1.7; max-width: 620px; margin: 0 auto 32px;
+    }
+    .article-meta {
+      display: flex; align-items: center; justify-content: center;
+      gap: 20px; flex-wrap: wrap;
+    }
+    .meta-author {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .meta-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      object-fit: cover; object-position: center 10%;
+    }
+    .meta-name { font-size: 13px; font-weight: 700; color: var(--s900); }
+    .meta-role { font-size: 11px; color: var(--s400); }
+    .meta-dot { color: var(--s200); font-size: 18px; }
+    .meta-date { font-size: 13px; color: var(--s600); }
+    .meta-read { font-size: 13px; color: var(--s600); }
+
+    /* ── Body ── */
+    .article-body {
+      max-width: 720px; margin: 0 auto;
+      padding: 64px 24px 80px;
+    }
+
+    /* Typography */
+    .article-body p {
+      font-size: 1.0625rem; color: var(--muted);
+      line-height: 1.85; margin-bottom: 24px;
+    }
+    .article-body h2 {
+      font-size: 1.35rem; font-weight: 800; color: var(--s900);
+      letter-spacing: -.02em; margin: 52px 0 18px;
+      padding-top: 4px;
+    }
+    .article-body h3 {
+      font-size: 1.05rem; font-weight: 700; color: var(--s900);
+      letter-spacing: -.01em; margin: 32px 0 12px;
+    }
+    .article-body strong { color: var(--s900); font-weight: 700; }
+
+    /* Pull quote */
+    .pull-quote {
+      margin: 40px 0;
+      padding: 28px 32px;
+      border-left: 4px solid var(--blue);
+      background: #eff6ff;
+      border-radius: 0 12px 12px 0;
+    }
+    .pull-quote p {
+      font-size: 1.1rem; font-weight: 600; color: var(--s900);
+      line-height: 1.6; margin: 0; font-style: italic;
+    }
+
+    /* Key questions box */
+    .question-block {
+      background: var(--s50);
+      border: 1.5px solid var(--s200);
+      border-radius: 14px;
+      padding: 32px 36px;
+      margin: 40px 0;
+    }
+    .question-block-label {
+      font-size: 10px; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--blue); margin-bottom: 20px;
+    }
+    .question-item {
+      display: flex; gap: 14px; align-items: flex-start;
+      margin-bottom: 16px;
+    }
+    .question-item:last-child { margin-bottom: 0; }
+    .question-num {
+      width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+      background: var(--blue); color: #fff;
+      font-size: 12px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .question-text { font-size: 15px; color: var(--s700); font-weight: 500; line-height: 1.5; padding-top: 4px; }
+
+    /* Section divider */
+    .article-divider {
+      border: none; border-top: 1px solid var(--s200);
+      margin: 48px 0;
+    }
+
+    /* CTA at bottom */
+    .article-cta {
+      background: linear-gradient(135deg, #0d1f48 0%, #112558 55%, #1a3880 100%);
+      border-radius: 18px; padding: 48px 40px; margin-top: 56px;
+      text-align: center;
+    }
+    .article-cta h3 {
+      font-size: 1.4rem; font-weight: 800; color: #fff;
+      letter-spacing: -.02em; margin: 0 0 12px; font-style: normal;
+    }
+    .article-cta p {
+      font-size: 15px; color: rgba(255,255,255,.65);
+      line-height: 1.65; max-width: 480px; margin: 0 auto 28px;
+    }
+    .article-cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-white {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 13px 22px; background: #fff; color: var(--s900);
+      font-size: 14px; font-weight: 700; border-radius: 10px;
+      text-decoration: none; transition: opacity .15s;
+    }
+    .btn-white:hover { opacity: .9; }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 13px 22px; background: rgba(255,255,255,.12);
+      border: 1.5px solid rgba(255,255,255,.24);
+      color: #fff; font-size: 14px; font-weight: 600;
+      border-radius: 10px; text-decoration: none;
+      transition: background .15s;
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,.18); }
+
+    /* Author bio at bottom */
+    .author-card {
+      display: flex; gap: 20px; align-items: flex-start;
+      background: var(--s50); border: 1.5px solid var(--s200);
+      border-radius: 14px; padding: 28px 30px; margin-top: 32px;
+    }
+    .author-card-photo {
+      width: 64px; height: 64px; border-radius: 50%;
+      object-fit: cover; object-position: center 10%; flex-shrink: 0;
+    }
+    .author-card-name { font-size: 15px; font-weight: 800; color: var(--s900); margin-bottom: 2px; }
+    .author-card-title { font-size: 11px; font-weight: 700; color: var(--blue); text-transform: uppercase; letter-spacing: .09em; margin-bottom: 10px; }
+    .author-card-bio { font-size: 13.5px; color: var(--muted); line-height: 1.7; margin: 0; }
+
+    /* Footer strip */
+    footer {
+      border-top: 1px solid var(--s200);
+      padding: 24px 48px;
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 12px; color: var(--s400);
+    }
+    footer a { color: var(--s600); text-decoration: none; }
+    footer a:hover { color: var(--blue); }
+    @media (max-width: 600px) {
+      footer { padding: 20px; flex-direction: column; gap: 8px; text-align: center; }
+      .article-cta { padding: 36px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav>
+  <a href="../index.html" class="nav-logo">
+    <img src="../primex-logo.png" alt="Primex Systems" class="nav-logo-img" />
+    <span class="nav-name">Primex Systems</span>
+  </a>
+  <div class="nav-right">
+    <a href="../index.html#insights" class="nav-back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path stroke-linecap="round" stroke-linejoin="round" d="M7 16l-4-4m0 0l4-4m-4 4h18"/></svg>
+      All Articles
+    </a>
+    <a href="https://calendar.app.google/SgWfVJ3nAmKVeA7N9" target="_blank" rel="noopener" class="nav-cta">Book a Call</a>
+  </div>
+</nav>
+
+<!-- Article hero -->
+<header class="article-hero">
+  <div class="article-cat">Data &amp; AI Strategy</div>
+  <h1 class="article-title">Your AI Problem Is Probably a Data Problem</h1>
+  <p class="article-sub">Before any automation initiative in healthcare operations, there are three questions every organization should be asking about their data. Most skip all three.</p>
+  <div class="article-meta">
+    <div class="meta-author">
+      <img src="../ajay-headshot-3.png" alt="Ajay Chaudhary" class="meta-avatar" />
+      <div>
+        <div class="meta-name">Ajay Chaudhary</div>
+        <div class="meta-role">Founder &amp; Principal Consultant</div>
+      </div>
+    </div>
+    <span class="meta-dot">·</span>
+    <span class="meta-date">July 2, 2026</span>
+    <span class="meta-dot">·</span>
+    <span class="meta-read">8 min read</span>
+  </div>
+</header>
+
+<!-- Article body -->
+<article class="article-body">
+
+  <p>When we start an engagement with a new client, the conversation almost always begins the same way. They want to automate something. Prior authorizations. Eligibility verification. Care gap closure. Claim status tracking. The process is slow, expensive, and manual, and the team is stretched thin. They've been watching the AI conversation closely and they're ready to move.</p>
+
+  <p>What they describe, on the surface, looks like a workflow problem. And sometimes it is. But more often — after we spend a few days looking under the hood — what we find is a <strong>data problem wearing a workflow dress</strong>.</p>
+
+  <h2>Why This Distinction Matters More Now Than Ever</h2>
+
+  <p>The AI opportunity in healthcare operations is real. The potential to compress prior authorization timelines, catch eligibility mismatches before claims go out, flag care gaps proactively, and reduce the administrative load on clinical staff — these aren't hypothetical benefits. Organizations are realizing them.</p>
+
+  <p>But the organizations that are realizing them have something in common: they addressed data first.</p>
+
+  <p>The organizations that skip that step don't fail quietly. AI doesn't smooth over bad data. It amplifies it. A human reviewer working through a queue of prior auth requests can catch an obviously wrong member ID, pause, and correct it. An AI system making decisions at scale doesn't pause. It processes the wrong ID, produces a wrong output, and moves to the next one. What was a slow, correctable human error becomes a fast, systemic one.</p>
+
+  <div class="pull-quote">
+    <p>AI doesn't smooth over bad data. It amplifies it. What was a slow, correctable human error becomes a fast, systemic one.</p>
+  </div>
+
+  <h2>The Three Questions We Ask First</h2>
+
+  <p>Before we talk about automation or AI with any client, we work through three questions. They aren't complex. But the answers have a way of reframing the conversation entirely.</p>
+
+  <div class="question-block">
+    <div class="question-block-label">Data Readiness Framework</div>
+    <div class="question-item">
+      <div class="question-num">1</div>
+      <div class="question-text">Is the data <strong>accurate</strong>? Are the records correct at the source?</div>
+    </div>
+    <div class="question-item">
+      <div class="question-num">2</div>
+      <div class="question-text">Is the data <strong>complete</strong>? Are all the relevant events and records present?</div>
+    </div>
+    <div class="question-item">
+      <div class="question-num">3</div>
+      <div class="question-text">Is the data <strong>timely</strong>? Is what the system sees current enough to act on?</div>
+    </div>
+  </div>
+
+  <h3>Is the data accurate?</h3>
+
+  <p>Incorrect member IDs. Outdated provider records. Vague or miscoded diagnosis information. These errors don't originate from your workflow — they come from upstream sources, legacy systems, and the accumulated weight of years of manual data entry and imperfect integrations. A smarter system built on top of them doesn't correct them. It scales them.</p>
+
+  <p>In prior authorization specifically, accuracy errors are particularly costly. A PA request submitted with an incorrect NPI, a mismatched member ID, or a diagnosis code that doesn't map cleanly to the clinical policy gets rejected or pended. If an AI system is automating those submissions, it does so confidently and at volume. Denial rates go up. Root causes stay invisible in the workflow data because, as far as the automation layer is concerned, it did exactly what it was designed to do.</p>
+
+  <h3>Is the data complete?</h3>
+
+  <p>Missing encounters. Clinical histories that live in one system and never made it to another. Care events that happened outside the network. Lab results that came back after the patient encounter was closed.</p>
+
+  <p>Automation built on incomplete records doesn't fill in the blanks intelligently. It either skips what it can't see or makes assumptions based on what it can. In healthcare, both options carry real risk. A care gap closure program that doesn't know about care that already happened will chase gaps that don't exist. A risk stratification model built on incomplete encounter data will underestimate patient complexity. The output looks clean. The problem is invisible until downstream — in audit findings, in a quality measure, in a member's care being misjudged.</p>
+
+  <h3>Is the data timely?</h3>
+
+  <p>Eligibility that's 48 hours stale in a system where coverage changes daily. Provider directories updated quarterly when practices change affiliation monthly. Risk scores derived from last quarter's claims being used to make today's utilization management decisions.</p>
+
+  <p>The faster a system operates, the more damaging it is when the information it acts on is out of date. Manual workflows have natural latency built in — a person checking eligibility in real time before a service is rendered is, by definition, working with current data. An automated system running eligibility checks against a batch file that's two days old is operating with a false confidence. It thinks it's checking. It's confirming something that may no longer be true.</p>
+
+  <hr class="article-divider" />
+
+  <h2>Workflows Matter — But Not First</h2>
+
+  <p>We're not dismissing workflow problems. Poorly designed processes create real operational cost, and fixing them creates real value. We do that work too. The issue is sequence.</p>
+
+  <p>A well-designed workflow running on bad data produces clean-looking results that are wrong. And that's a harder problem to catch than an obviously broken process. When a workflow is broken, things visibly fail — claims don't go out, authorizations don't get submitted, staff can see the backlog building. When a workflow is efficient but the underlying data is wrong, things look like they're working. Reports show throughput. Automation logs show decisions made.</p>
+
+  <p>The errors are buried in outcomes. By the time they surface — in denial rates, in an audit finding, in a compliance issue — the cause is several layers removed from where anyone is looking.</p>
+
+  <h2>What Data Readiness Actually Looks Like</h2>
+
+  <p>Data readiness isn't a one-time cleanup project. It's an infrastructure question.</p>
+
+  <p>The practical starting point is an honest audit of your source systems: Where does member data originate, how does it move, where does it degrade, and what's the tolerance for error in each downstream use case? The same question applies to provider data, clinical data, and claims data. The answer is almost always that different systems have different data quality profiles — and those profiles matter differently depending on what you're trying to automate.</p>
+
+  <p>EDI transaction integrity is often a useful early signal. The 837, 835, 270/271, and 278 transactions flowing through your systems tell you a great deal about where data is being dropped, transformed incorrectly, or mapped inconsistently. Organizations that have clean EDI pipelines tend to have cleaner downstream data. The ones that have patched their EDI layer with manual workarounds have typically built those patches on top of unresolved data problems that move downstream with them.</p>
+
+  <h2>The Return on Getting This Right</h2>
+
+  <p>The organizations seeing real returns from AI in healthcare operations have something in common. They treated data readiness as the foundation, not the afterthought. They invested time upfront in understanding where their data was incomplete, inaccurate, or stale — and in building the infrastructure to catch those problems before they feed into automated decisions.</p>
+
+  <p>That upfront investment doesn't make the AI work more impressive on a demo slide. It just makes it actually work in production, at scale, under audit.</p>
+
+  <p>Most "broken" systems aren't broken because of bad technology. They're broken because the system was never designed around how data actually moves through the organization. That's a solvable problem — but it has to be the first conversation, not the last one.</p>
+
+  <!-- CTA -->
+  <div class="article-cta">
+    <h3>Ready to pressure-test your data layer?</h3>
+    <p>If your team is planning an AI or automation initiative, we'd be glad to dig into the data readiness questions with you before you build on them.</p>
+    <div class="article-cta-btns">
+      <a href="https://calendar.app.google/SgWfVJ3nAmKVeA7N9" target="_blank" rel="noopener" class="btn-white">
+        Book a Call
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+      <a href="../index.html#contact" class="btn-ghost">Send a Message</a>
+    </div>
+  </div>
+
+  <!-- Author card -->
+  <div class="author-card">
+    <img src="../ajay-headshot-3.png" alt="Ajay Chaudhary" class="author-card-photo" />
+    <div>
+      <div class="author-card-name">Ajay Chaudhary</div>
+      <div class="author-card-title">Founder &amp; Principal Consultant, Primex Systems</div>
+      <p class="author-card-bio">15+ years building healthcare technology from the inside out — prior authorization workflows, EDI transaction pipelines, FHIR R4 APIs, and the data and compliance infrastructure that holds it all together.</p>
+    </div>
+  </div>
+
+</article>
+
+<!-- Footer -->
+<footer>
+  <span>&copy; 2026 Primex Systems. All Rights Reserved.</span>
+  <a href="../index.html">← Back to primexsystems.org</a>
+</footer>
+
+</body>
+</html>
