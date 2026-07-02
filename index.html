@@ -712,32 +712,6 @@
       .about-stats { grid-template-columns: repeat(4, 1fr); }
     }
 
-    /* ── Insights teaser ───────────────────────────────────────────────────── */
-    #insights { background: var(--s50); }
-    .insights-teaser { display: grid; grid-template-columns: 1fr 1.6fr; gap: 72px; align-items: center; }
-    .insights-latest {
-      background: #fff; border: 1.5px solid var(--s200); border-radius: 18px;
-      padding: 28px; text-decoration: none; display: block;
-      transition: border-color .15s, box-shadow .15s, transform .15s;
-    }
-    .insights-latest:hover { border-color: rgba(37,99,235,.40); box-shadow: 0 8px 36px rgba(37,99,235,.12); transform: translateY(-3px); }
-    .insights-latest-label { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--s400); margin-bottom: 14px; }
-    .insights-latest-cat {
-      display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: .1em;
-      text-transform: uppercase; color: var(--blue); background: #eff6ff;
-      border: 1px solid #dbeafe; border-radius: 5px; padding: 3px 9px; margin-bottom: 12px;
-    }
-    .insights-latest-title { font-size: 1.0rem; font-weight: 800; color: var(--s900); line-height: 1.35; letter-spacing: -.01em; margin-bottom: 8px; }
-    .insights-latest:hover .insights-latest-title { color: var(--blue); }
-    .insights-latest-excerpt { font-size: 13px; color: var(--muted); line-height: 1.65; margin-bottom: 16px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-    .insights-latest-meta { font-size: 11px; color: var(--s400); }
-    .insights-browse {
-      display: inline-flex; align-items: center; gap: 7px;
-      margin-top: 24px; font-size: 14px; font-weight: 700;
-      color: var(--blue); text-decoration: none;
-    }
-    .insights-browse:hover { text-decoration: underline; }
-    @media (max-width: 900px) { .insights-teaser { grid-template-columns: 1fr; gap: 36px; } }
 
     /* ── Meet the Founder ──────────────────────────────────────────────────── */
     .founder-card { display: flex; gap: 56px; align-items: flex-start; background: #fff; border-radius: 20px; padding: 48px; box-shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 24px rgba(0,0,0,.07); }
@@ -770,7 +744,7 @@
     <li><a href="#fhir">CMS-0057-F</a></li>
     <li><a href="#how">How We Work</a></li>
     <li><a href="#about">About</a></li>
-    <li><a href="#insights">Insights</a></li>
+    <li><a href="insights/index.html">Insights</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
   <a href="https://calendar.app.google/SgWfVJ3nAmKVeA7N9" target="_blank" rel="noopener" class="nav-cta">
@@ -1472,35 +1446,6 @@
           </div>
 
         </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════ INSIGHTS ══════════════════════════════════════ -->
-<section id="insights" class="section">
-  <div class="container">
-    <div class="insights-teaser">
-
-      <div class="reveal">
-        <p class="eyebrow">Insights</p>
-        <h2 class="sh2" style="font-size:clamp(1.5rem,2.2vw,2rem);margin-bottom:16px;">Thinking in public about healthcare data</h2>
-        <p class="section-sub" style="max-width:400px;">Practical perspectives on data quality, EDI, FHIR compliance, and where AI actually fits — from people who build these systems for a living.</p>
-        <a href="insights/index.html" class="insights-browse">
-          Browse all articles
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-        </a>
-      </div>
-
-      <div class="reveal d2">
-        <a href="insights/your-ai-problem-is-a-data-problem.html" class="insights-latest">
-          <div class="insights-latest-label">Latest Article</div>
-          <div class="insights-latest-cat">Data &amp; AI Strategy</div>
-          <div class="insights-latest-title">Your AI Problem Is Probably a Data Problem</div>
-          <p class="insights-latest-excerpt">Most organizations come to us thinking they have a workflow problem. After digging in, it's almost always a data problem wearing a workflow dress.</p>
-          <div class="insights-latest-meta">Ajay Chaudhary · Jul 2, 2026 · 8 min read</div>
-        </a>
       </div>
 
     </div>
