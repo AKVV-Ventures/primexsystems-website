@@ -712,37 +712,32 @@
       .about-stats { grid-template-columns: repeat(4, 1fr); }
     }
 
-    /* ── Insights ──────────────────────────────────────────────────────────── */
+    /* ── Insights teaser ───────────────────────────────────────────────────── */
     #insights { background: var(--s50); }
-    .insights-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
-    .insight-card {
+    .insights-teaser { display: grid; grid-template-columns: 1fr 1.6fr; gap: 72px; align-items: center; }
+    .insights-latest {
       background: #fff; border: 1.5px solid var(--s200); border-radius: 18px;
-      overflow: hidden; display: flex; flex-direction: column;
+      padding: 28px; text-decoration: none; display: block;
       transition: border-color .15s, box-shadow .15s, transform .15s;
-      text-decoration: none;
     }
-    .insight-card:hover { border-color: rgba(37,99,235,.40); box-shadow: 0 8px 36px rgba(37,99,235,.12); transform: translateY(-3px); }
-    .insight-card-img {
-      height: 6px;
-      background: linear-gradient(90deg, var(--blue) 0%, #818cf8 100%);
+    .insights-latest:hover { border-color: rgba(37,99,235,.40); box-shadow: 0 8px 36px rgba(37,99,235,.12); transform: translateY(-3px); }
+    .insights-latest-label { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--s400); margin-bottom: 14px; }
+    .insights-latest-cat {
+      display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--blue); background: #eff6ff;
+      border: 1px solid #dbeafe; border-radius: 5px; padding: 3px 9px; margin-bottom: 12px;
     }
-    .insight-card-body { padding: 28px 28px 24px; flex: 1; display: flex; flex-direction: column; }
-    .insight-cat {
-      display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: .12em;
-      text-transform: uppercase; color: var(--blue);
-      background: #eff6ff; border: 1px solid #dbeafe;
-      border-radius: 5px; padding: 3px 9px; margin-bottom: 14px; width: fit-content;
+    .insights-latest-title { font-size: 1.0rem; font-weight: 800; color: var(--s900); line-height: 1.35; letter-spacing: -.01em; margin-bottom: 8px; }
+    .insights-latest:hover .insights-latest-title { color: var(--blue); }
+    .insights-latest-excerpt { font-size: 13px; color: var(--muted); line-height: 1.65; margin-bottom: 16px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .insights-latest-meta { font-size: 11px; color: var(--s400); }
+    .insights-browse {
+      display: inline-flex; align-items: center; gap: 7px;
+      margin-top: 24px; font-size: 14px; font-weight: 700;
+      color: var(--blue); text-decoration: none;
     }
-    .insight-title { font-size: 1.0rem; font-weight: 800; color: var(--s900); line-height: 1.35; margin-bottom: 10px; letter-spacing: -.01em; }
-    .insight-excerpt { font-size: 13.5px; color: var(--muted); line-height: 1.7; flex: 1; margin-bottom: 20px; }
-    .insight-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 16px; border-top: 1px solid var(--s100); }
-    .insight-author { display: flex; align-items: center; gap: 8px; }
-    .insight-avatar { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; object-position: center 10%; }
-    .insight-byline { font-size: 12px; font-weight: 600; color: var(--s700); }
-    .insight-meta { font-size: 11px; color: var(--s400); margin-top: 1px; }
-    .insight-read { font-size: 12px; font-weight: 700; color: var(--blue); display: flex; align-items: center; gap: 4px; }
-    @media (max-width: 900px) { .insights-grid { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 600px) { .insights-grid { grid-template-columns: 1fr; } }
+    .insights-browse:hover { text-decoration: underline; }
+    @media (max-width: 900px) { .insights-teaser { grid-template-columns: 1fr; gap: 36px; } }
 
     /* ── Meet the Founder ──────────────────────────────────────────────────── */
     .founder-card { display: flex; gap: 56px; align-items: flex-start; background: #fff; border-radius: 20px; padding: 48px; box-shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 24px rgba(0,0,0,.07); }
@@ -1486,34 +1481,27 @@
 <!-- ═══════════════════════ INSIGHTS ══════════════════════════════════════ -->
 <section id="insights" class="section">
   <div class="container">
-    <div class="reveal" style="text-align:center;max-width:600px;margin:0 auto;">
-      <p class="eyebrow">Insights</p>
-      <h2 class="sh2" style="font-size:clamp(1.6rem,2.4vw,2.1rem);margin-bottom:16px;">Thinking in public about healthcare data</h2>
-      <p class="section-sub" style="margin:0 auto;">Practical perspectives on the problems we see every day — data quality, system integration, compliance, and where AI actually fits in healthcare operations.</p>
-    </div>
-    <div class="insights-grid">
+    <div class="insights-teaser">
 
-      <a href="insights/your-ai-problem-is-a-data-problem.html" class="insight-card reveal d2">
-        <div class="insight-card-img"></div>
-        <div class="insight-card-body">
-          <span class="insight-cat">Data &amp; AI Strategy</span>
-          <div class="insight-title">Your AI Problem Is Probably a Data Problem</div>
-          <p class="insight-excerpt">Most organizations come to us thinking they have a workflow problem. After digging in, it's almost always a data problem wearing a workflow dress. Before any AI initiative, ask these three questions first.</p>
-          <div class="insight-footer">
-            <div class="insight-author">
-              <img src="ajay-headshot-3.png" alt="Ajay Chaudhary" class="insight-avatar" />
-              <div>
-                <div class="insight-byline">Ajay Chaudhary</div>
-                <div class="insight-meta">Jul 2, 2026 · 8 min read</div>
-              </div>
-            </div>
-            <span class="insight-read">
-              Read
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="12" height="12"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-            </span>
-          </div>
-        </div>
-      </a>
+      <div class="reveal">
+        <p class="eyebrow">Insights</p>
+        <h2 class="sh2" style="font-size:clamp(1.5rem,2.2vw,2rem);margin-bottom:16px;">Thinking in public about healthcare data</h2>
+        <p class="section-sub" style="max-width:400px;">Practical perspectives on data quality, EDI, FHIR compliance, and where AI actually fits — from people who build these systems for a living.</p>
+        <a href="insights/index.html" class="insights-browse">
+          Browse all articles
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+      </div>
+
+      <div class="reveal d2">
+        <a href="insights/your-ai-problem-is-a-data-problem.html" class="insights-latest">
+          <div class="insights-latest-label">Latest Article</div>
+          <div class="insights-latest-cat">Data &amp; AI Strategy</div>
+          <div class="insights-latest-title">Your AI Problem Is Probably a Data Problem</div>
+          <p class="insights-latest-excerpt">Most organizations come to us thinking they have a workflow problem. After digging in, it's almost always a data problem wearing a workflow dress.</p>
+          <div class="insights-latest-meta">Ajay Chaudhary · Jul 2, 2026 · 8 min read</div>
+        </a>
+      </div>
 
     </div>
   </div>

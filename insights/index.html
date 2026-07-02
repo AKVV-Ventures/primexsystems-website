@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Insights — Primex Systems</title>
+  <meta name="description" content="Practical perspectives on healthcare data quality, system integration, EDI, FHIR compliance, and where AI actually fits in healthcare operations." />
+  <link rel="icon" type="image/png" href="../primex-logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      color: #0f172a;
+      background: #ffffff;
+    }
+    :root {
+      --blue:  #2563eb;
+      --blue-d:#1d4ed8;
+      --s50:   #f8fafc;
+      --s100:  #f1f5f9;
+      --s200:  #e2e8f0;
+      --s400:  #94a3b8;
+      --s600:  #475569;
+      --s700:  #334155;
+      --s900:  #0f172a;
+      --muted: #3d4e63;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 64px;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--s200);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo-img { height: 28px; width: auto; }
+    .nav-name { font-size: 15px; font-weight: 800; color: var(--s900); letter-spacing: -.01em; }
+    .nav-right { display: flex; align-items: center; gap: 24px; }
+    .nav-back { font-size: 13px; font-weight: 600; color: var(--s600); text-decoration: none; display: flex; align-items: center; gap: 6px; }
+    .nav-back:hover { color: var(--blue); }
+    .nav-cta {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 9px 18px; background: var(--blue); color: #fff;
+      font-size: 13px; font-weight: 700; border-radius: 8px;
+      text-decoration: none; transition: background .15s;
+    }
+    .nav-cta:hover { background: var(--blue-d); }
+    @media (max-width: 600px) { nav { padding: 0 20px; } .nav-cta { display: none; } }
+
+    /* ── Page header ── */
+    .page-header {
+      background: var(--s50);
+      border-bottom: 1px solid var(--s200);
+      padding: 56px 48px 48px;
+    }
+    .page-header-inner { max-width: 860px; }
+    .page-eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--blue); margin-bottom: 14px;
+    }
+    .page-title {
+      font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 900;
+      color: var(--s900); letter-spacing: -.03em; line-height: 1.1;
+      margin-bottom: 14px;
+    }
+    .page-desc {
+      font-size: 1.0rem; color: var(--muted); line-height: 1.7;
+      max-width: 560px;
+    }
+    @media (max-width: 600px) { .page-header { padding: 40px 20px 36px; } }
+
+    /* ── Article list ── */
+    .articles-wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 16px 48px 80px;
+    }
+    @media (max-width: 600px) { .articles-wrap { padding: 8px 20px 60px; } }
+
+    .articles-list { list-style: none; }
+
+    .article-row {
+      display: flex; align-items: flex-start; gap: 20px;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--s100);
+      text-decoration: none;
+      transition: background .12s;
+      border-radius: 12px;
+      margin: 0 -16px;
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+    .article-row:last-child { border-bottom: none; }
+    .article-row:hover { background: var(--s50); }
+
+    .article-row-cat {
+      flex-shrink: 0; margin-top: 3px;
+      width: 140px;
+    }
+    .cat-pill {
+      display: inline-block; font-size: 10px; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--blue); background: #eff6ff;
+      border: 1px solid #dbeafe; border-radius: 5px;
+      padding: 3px 9px;
+    }
+
+    .article-row-main { flex: 1; min-width: 0; }
+    .article-row-title {
+      font-size: 1.0rem; font-weight: 800; color: var(--s900);
+      letter-spacing: -.01em; line-height: 1.35; margin-bottom: 6px;
+    }
+    .article-row:hover .article-row-title { color: var(--blue); }
+    .article-row-excerpt {
+      font-size: 13.5px; color: var(--muted); line-height: 1.65;
+      display: -webkit-box; -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical; overflow: hidden;
+    }
+
+    .article-row-meta {
+      flex-shrink: 0; text-align: right;
+      display: flex; flex-direction: column; align-items: flex-end;
+      justify-content: space-between; gap: 12px; min-width: 100px;
+    }
+    .article-row-date { font-size: 12px; color: var(--s400); white-space: nowrap; }
+    .article-row-read { font-size: 12px; color: var(--s400); white-space: nowrap; }
+    .article-row-arrow {
+      width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+      background: var(--s100); border: 1px solid var(--s200);
+      display: flex; align-items: center; justify-content: center;
+      transition: background .12s, border-color .12s;
+    }
+    .article-row:hover .article-row-arrow {
+      background: var(--blue); border-color: var(--blue);
+    }
+    .article-row:hover .article-row-arrow svg { stroke: #fff; }
+    .article-row-arrow svg { width: 13px; height: 13px; stroke: var(--s600); }
+
+    @media (max-width: 700px) {
+      .article-row { flex-wrap: wrap; gap: 8px; }
+      .article-row-cat { width: auto; }
+      .article-row-meta { flex-direction: row; align-items: center; width: 100%; justify-content: flex-start; }
+      .article-row-arrow { margin-left: auto; }
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--s200);
+      padding: 24px 48px;
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 12px; color: var(--s400);
+    }
+    footer a { color: var(--s600); text-decoration: none; }
+    footer a:hover { color: var(--blue); }
+    @media (max-width: 600px) { footer { padding: 20px; flex-direction: column; gap: 8px; text-align: center; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">
+    <img src="../primex-logo.png" alt="Primex Systems" class="nav-logo-img" />
+    <span class="nav-name">Primex Systems</span>
+  </a>
+  <div class="nav-right">
+    <a href="../index.html" class="nav-back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path stroke-linecap="round" stroke-linejoin="round" d="M7 16l-4-4m0 0l4-4m-4 4h18"/></svg>
+      Back to Home
+    </a>
+    <a href="https://calendar.app.google/SgWfVJ3nAmKVeA7N9" target="_blank" rel="noopener" class="nav-cta">Book a Call</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <p class="page-eyebrow">Insights</p>
+    <h1 class="page-title">Thinking in public<br>about healthcare data</h1>
+    <p class="page-desc">Practical perspectives on data quality, system integration, EDI, FHIR compliance, and where AI actually fits in healthcare operations — from people who build these systems for a living.</p>
+  </div>
+</div>
+
+<div class="articles-wrap">
+  <ul class="articles-list">
+
+    <li>
+      <a href="your-ai-problem-is-a-data-problem.html" class="article-row">
+        <div class="article-row-cat">
+          <span class="cat-pill">Data &amp; AI Strategy</span>
+        </div>
+        <div class="article-row-main">
+          <div class="article-row-title">Your AI Problem Is Probably a Data Problem</div>
+          <p class="article-row-excerpt">Most organizations come to us thinking they have a workflow problem. After digging in, it's almost always a data problem wearing a workflow dress. Before any AI initiative, ask these three questions first.</p>
+        </div>
+        <div class="article-row-meta">
+          <div>
+            <div class="article-row-date">Jul 2, 2026</div>
+            <div class="article-row-read">8 min read</div>
+          </div>
+          <div class="article-row-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </div>
+        </div>
+      </a>
+    </li>
+
+    <!-- future articles go here -->
+
+  </ul>
+</div>
+
+<footer>
+  <span>&copy; 2026 Primex Systems. All Rights Reserved.</span>
+  <a href="../index.html">primexsystems.org</a>
+</footer>
+
+</body>
+</html>
