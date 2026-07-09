@@ -1871,14 +1871,14 @@
   window.addEventListener('resize', resize);
 
   var ND = [
-    { l:'Provider',      x:.12, y:.62 },
-    { l:'EHR / EMR',     x:.07, y:.82 },
-    { l:'Clearinghouse', x:.40, y:.58 },
-    { l:'Payer',         x:.68, y:.50 },
-    { l:'CMS',           x:.88, y:.64 },
-    { l:'AI Engine',     x:.52, y:.80 },
-    { l:'Member',        x:.25, y:.87 },
-    { l:'PBM',           x:.78, y:.83 },
+    { l:'Provider',      x:.08, y:.68 },
+    { l:'EHR / EMR',     x:.05, y:.86 },
+    { l:'Clearinghouse', x:.22, y:.78 },
+    { l:'Payer',         x:.74, y:.62 },
+    { l:'CMS',           x:.92, y:.72 },
+    { l:'AI Engine',     x:.55, y:.91 },
+    { l:'Member',        x:.18, y:.93 },
+    { l:'PBM',           x:.85, y:.85 },
   ];
   var EDGES = [[0,2],[0,1],[0,6],[1,6],[2,3],[2,5],[3,4],[3,5],[3,7],[4,7],[5,6],[2,6]];
   var PKT = [];
@@ -1922,8 +1922,8 @@
       ctx.beginPath(); ctx.arc(n.px,n.py,13,0,Math.PI*2);
       ctx.fillStyle='rgba(8,18,48,.88)'; ctx.fill();
       ctx.strokeStyle='rgba(99,147,255,.44)'; ctx.lineWidth=1.5; ctx.stroke();
-      ctx.font='bold 9px Inter,system-ui,sans-serif';
-      ctx.fillStyle='rgba(147,197,253,.65)';
+      ctx.font='600 11px Inter,system-ui,sans-serif';
+      ctx.fillStyle='rgba(255,255,255,.82)';
       ctx.textAlign='center'; ctx.textBaseline='top';
       ctx.fillText(n.l, n.px, n.py+17);
     });
@@ -2034,7 +2034,9 @@
       var bg2=ctx.createLinearGradient(bx,by,bx+bw,by+bh);
       bg2.addColorStop(0,e.col+'62'); bg2.addColorStop(1,e.col+'22');
       ctx.strokeStyle=bg2; ctx.lineWidth=1.5; ctx.stroke();
-      rr(ctx,bx,by,bw,3,2); ctx.fillStyle=e.col; ctx.fill();
+      ctx.save(); rr(ctx,bx,by,bw,bh,14); ctx.clip();
+      ctx.fillStyle=e.col; ctx.fillRect(bx,by,bw,4);
+      ctx.restore();
       ctx.font='700 12px Inter,system-ui,sans-serif';
       ctx.fillStyle='#fff'; ctx.textAlign='center'; ctx.textBaseline='middle';
       ctx.fillText(e.lbl, e.cx, e.cy-10);
