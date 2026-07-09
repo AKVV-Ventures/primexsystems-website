@@ -725,59 +725,6 @@
     }
 
 
-    /* ── Hero network canvas ──────────────────────────────────────────────── */
-    #hero-canvas {
-      position: absolute; inset: 0;
-      width: 100%; height: 100%;
-      pointer-events: none; z-index: 0;
-    }
-
-    /* ── Ecosystem section ────────────────────────────────────────────────── */
-    #ecosystem {
-      background: #020813;
-      border-top: 1px solid rgba(255,255,255,.05);
-      border-bottom: 1px solid rgba(255,255,255,.05);
-    }
-    .eco-header { text-align: center; margin-bottom: 52px; }
-    .eco-header .sh2 { color: #fff; }
-    .eco-header .section-sub { color: rgba(255,255,255,.48); margin: 0 auto; }
-    #eco-canvas {
-      display: block; width: 100%;
-      border-radius: 18px; border: 1px solid rgba(255,255,255,.06);
-    }
-
-    /* ── How We Work process bar ──────────────────────────────────────────── */
-    .how-process {
-      display: flex; align-items: flex-start;
-      justify-content: center; gap: 0;
-      margin: 0 auto 56px; max-width: 560px;
-    }
-    .how-pstep {
-      display: flex; flex-direction: column; align-items: center;
-      gap: 10px; width: 130px; flex-shrink: 0;
-    }
-    .how-pnum {
-      width: 52px; height: 52px; border-radius: 50%;
-      background: var(--blue); color: #fff;
-      font-size: 20px; font-weight: 900;
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 4px 22px rgba(37,99,235,.42);
-      position: relative; z-index: 1;
-    }
-    .how-plabel {
-      font-size: 13px; font-weight: 700; color: var(--s700);
-      text-align: center; letter-spacing: -.005em;
-    }
-    .how-pconn {
-      flex: 1; height: 2px; margin-top: 26px;
-      background: linear-gradient(90deg, var(--blue), #818cf8);
-      position: relative;
-    }
-    .how-pconn::after {
-      content: ''; position: absolute; right: -1px; top: -5px;
-      border: 6px solid transparent; border-left-color: #818cf8;
-    }
-
     /* ── Meet the Founder ──────────────────────────────────────────────────── */
     .founder-card { display: flex; gap: 56px; align-items: flex-start; background: #fff; border-radius: 20px; padding: 48px; box-shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 24px rgba(0,0,0,.07); }
     .founder-left { flex-shrink: 0; width: 210px; display: flex; flex-direction: column; align-items: center; text-align: center; }
@@ -826,7 +773,6 @@
 <!-- ═══════════════════════ HERO ══════════════════════════════════════════ -->
 <section id="hero">
   <div class="hero-glow"></div>
-  <canvas id="hero-canvas"></canvas>
   <div class="hero-inner">
     <div class="hero-pill">
       <span class="pulse-dot"></span>
@@ -915,20 +861,6 @@
     </div>
   </div>
 </div>
-
-<!-- ═══════════════════ HEALTHCARE DATA ECOSYSTEM ════════════════════════ -->
-<section id="ecosystem" class="section">
-  <div class="container">
-    <div class="eco-header reveal">
-      <p class="eyebrow">The healthcare data ecosystem</p>
-      <h2 class="sh2">Every transaction. Every system.<br><span>All connected.</span></h2>
-      <p class="section-sub">We work across the full data lifecycle — 837 claims, 835 remittances, 270/271 eligibility checks, and 278 prior authorizations — and through the FHIR R4 APIs that connect it all in real time.</p>
-    </div>
-    <div class="reveal">
-      <canvas id="eco-canvas"></canvas>
-    </div>
-  </div>
-</section>
 
 <!-- ═══════════════════════ CMS-0057-F ═══════════════════════════════════ -->
 <section id="fhir" class="section">
@@ -1350,22 +1282,6 @@
       <p class="eyebrow">Our Approach</p>
       <h2 class="sh2">How We Work</h2>
       <p class="section-sub">We don't show up with a pre-packaged solution. We start by understanding how your teams actually operate — then design and deliver systems they can own independently.</p>
-    </div>
-    <div class="how-process reveal">
-      <div class="how-pstep">
-        <div class="how-pnum">1</div>
-        <div class="how-plabel">Discover</div>
-      </div>
-      <div class="how-pconn"></div>
-      <div class="how-pstep">
-        <div class="how-pnum">2</div>
-        <div class="how-plabel">Design</div>
-      </div>
-      <div class="how-pconn"></div>
-      <div class="how-pstep">
-        <div class="how-pnum">3</div>
-        <div class="how-plabel">Deliver</div>
-      </div>
     </div>
     <div class="steps">
 
@@ -1851,220 +1767,6 @@
       btn.disabled    = false;
     }
   });
-</script>
-
-<script>
-/* ── Hero Network Canvas ──────────────────────────────────────────────────── */
-(function() {
-  var cv = document.getElementById('hero-canvas');
-  if (!cv) return;
-  var DPR = window.devicePixelRatio || 1;
-  var W, H, ctx;
-
-  function resize() {
-    W = cv.offsetWidth; H = cv.offsetHeight;
-    cv.width = W * DPR; cv.height = H * DPR;
-    ctx = cv.getContext('2d');
-    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-  }
-  resize();
-  window.addEventListener('resize', resize);
-
-  var ND = [
-    { l:'Provider',      x:.12, y:.62 },
-    { l:'EHR / EMR',     x:.07, y:.82 },
-    { l:'Clearinghouse', x:.40, y:.58 },
-    { l:'Payer',         x:.68, y:.50 },
-    { l:'CMS',           x:.88, y:.64 },
-    { l:'AI Engine',     x:.52, y:.80 },
-    { l:'Member',        x:.25, y:.87 },
-    { l:'PBM',           x:.78, y:.83 },
-  ];
-  var EDGES = [[0,2],[0,1],[0,6],[1,6],[2,3],[2,5],[3,4],[3,5],[3,7],[4,7],[5,6],[2,6]];
-  var PKT = [];
-  EDGES.forEach(function(e, i) {
-    PKT.push({ a:e[0], b:e[1], t: i * 0.083,        spd:.0022+Math.random()*.0018, sz:2.2, fwd:true  });
-    PKT.push({ a:e[0], b:e[1], t:(i*.083+.5)%1,     spd:.0018+Math.random()*.0015, sz:1.8, fwd:false });
-  });
-
-  function frame() {
-    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-    ctx.clearRect(0, 0, W, H);
-
-    var N = ND.map(function(d){ return { l:d.l, px:d.x*W, py:d.y*H }; });
-
-    EDGES.forEach(function(e) {
-      var na=N[e[0]], nb=N[e[1]];
-      var g = ctx.createLinearGradient(na.px, na.py, nb.px, nb.py);
-      g.addColorStop(0, 'rgba(37,99,235,.13)');
-      g.addColorStop(.5,'rgba(99,147,255,.17)');
-      g.addColorStop(1, 'rgba(37,99,235,.13)');
-      ctx.beginPath(); ctx.moveTo(na.px, na.py); ctx.lineTo(nb.px, nb.py);
-      ctx.strokeStyle=g; ctx.lineWidth=1; ctx.stroke();
-    });
-
-    PKT.forEach(function(p) {
-      p.t = (p.t + p.spd) % 1;
-      var na=N[p.a], nb=N[p.b];
-      var t = p.fwd ? p.t : 1-p.t;
-      var px=na.px+(nb.px-na.px)*t, py=na.py+(nb.py-na.py)*t;
-      var gr=ctx.createRadialGradient(px,py,0,px,py,p.sz*4.5);
-      gr.addColorStop(0,'rgba(147,197,253,.72)');
-      gr.addColorStop(1,'rgba(37,99,235,0)');
-      ctx.beginPath(); ctx.arc(px,py,p.sz*4.5,0,Math.PI*2); ctx.fillStyle=gr; ctx.fill();
-      ctx.beginPath(); ctx.arc(px,py,p.sz,0,Math.PI*2); ctx.fillStyle='rgba(210,230,255,.92)'; ctx.fill();
-    });
-
-    N.forEach(function(n) {
-      var gr=ctx.createRadialGradient(n.px,n.py,3,n.px,n.py,30);
-      gr.addColorStop(0,'rgba(37,99,235,.16)'); gr.addColorStop(1,'rgba(37,99,235,0)');
-      ctx.beginPath(); ctx.arc(n.px,n.py,30,0,Math.PI*2); ctx.fillStyle=gr; ctx.fill();
-      ctx.beginPath(); ctx.arc(n.px,n.py,13,0,Math.PI*2);
-      ctx.fillStyle='rgba(8,18,48,.88)'; ctx.fill();
-      ctx.strokeStyle='rgba(99,147,255,.44)'; ctx.lineWidth=1.5; ctx.stroke();
-      ctx.font='bold 9px Inter,system-ui,sans-serif';
-      ctx.fillStyle='rgba(147,197,253,.65)';
-      ctx.textAlign='center'; ctx.textBaseline='top';
-      ctx.fillText(n.l, n.px, n.py+17);
-    });
-
-    var fade=ctx.createLinearGradient(0,0,0,H);
-    fade.addColorStop(0,'rgba(4,12,36,1)');
-    fade.addColorStop(.44,'rgba(4,12,36,0)');
-    ctx.fillStyle=fade; ctx.fillRect(0,0,W,H);
-
-    requestAnimationFrame(frame);
-  }
-  requestAnimationFrame(frame);
-})();
-
-/* ── Ecosystem Canvas ─────────────────────────────────────────────────────── */
-(function() {
-  var cv = document.getElementById('eco-canvas');
-  if (!cv) return;
-  var DPR = window.devicePixelRatio || 1;
-  var LW = 1100, LH = 430;
-  cv.width  = LW * DPR;
-  cv.height = LH * DPR;
-  cv.style.aspectRatio = LW + '/' + LH;
-  var ctx = cv.getContext('2d');
-  ctx.scale(DPR, DPR);
-
-  var ENT = [
-    { lbl:'Provider Group',      sub:'EHR · Clinic · Hospital',  cx:162, cy:230, col:'#2563eb' },
-    { lbl:'Clearinghouse',       sub:'Validation · Routing',      cx:550, cy:230, col:'#7c3aed' },
-    { lbl:'Health Plan / Payer', sub:'Claims · Auth · Benefits',  cx:938, cy:230, col:'#0891b2' },
-  ];
-  var TX = { claim:'#3b82f6', pay:'#10b981', elig:'#f59e0b', auth:'#8b5cf6' };
-  var FLOWS = [
-    { from:0, to:1, col:TX.claim, lbl:'837 Claim',          yOff:-80, fwd:true  },
-    { from:1, to:0, col:TX.pay,   lbl:'835 Remittance',     yOff:-44, fwd:false },
-    { from:0, to:1, col:TX.elig,  lbl:'270 / 271 Eligibility', yOff:-8, fwd:true  },
-    { from:0, to:1, col:TX.auth,  lbl:'278 Prior Auth',     yOff:30,  fwd:true  },
-    { from:1, to:2, col:TX.claim, lbl:'837 Claim',          yOff:-80, fwd:true  },
-    { from:2, to:1, col:TX.pay,   lbl:'835 Remittance',     yOff:-44, fwd:false },
-    { from:1, to:2, col:TX.elig,  lbl:'270 / 271 Eligibility', yOff:-8, fwd:true  },
-    { from:1, to:2, col:TX.auth,  lbl:'278 Prior Auth',     yOff:30,  fwd:true  },
-  ];
-  var PKTS = FLOWS.map(function(f, i){ return Object.assign({}, f, { t: i*0.125, spd:0.006+Math.random()*.003 }); });
-
-  function rr(c, x, y, w, h, r) {
-    c.beginPath();
-    c.moveTo(x+r,y); c.lineTo(x+w-r,y); c.quadraticCurveTo(x+w,y,x+w,y+r);
-    c.lineTo(x+w,y+h-r); c.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
-    c.lineTo(x+r,y+h); c.quadraticCurveTo(x,y+h,x,y+h-r);
-    c.lineTo(x,y+r); c.quadraticCurveTo(x,y,x+r,y); c.closePath();
-  }
-
-  function frame() {
-    ctx.clearRect(0, 0, LW, LH);
-    var bg=ctx.createLinearGradient(0,0,LW,LH);
-    bg.addColorStop(0,'#060d26'); bg.addColorStop(1,'#0b1840');
-    ctx.fillStyle=bg; ctx.fillRect(0,0,LW,LH);
-
-    rr(ctx,40,18,LW-80,36,8);
-    ctx.fillStyle='rgba(6,182,212,.07)'; ctx.fill();
-    ctx.strokeStyle='rgba(6,182,212,.28)'; ctx.lineWidth=1; ctx.stroke();
-    ctx.font='600 10.5px Inter,system-ui,sans-serif';
-    ctx.fillStyle='rgba(6,182,212,.78)';
-    ctx.textAlign='center'; ctx.textBaseline='middle';
-    ctx.fillText('FHIR R4 API Layer  ·  Prior Authorization API  ·  Provider Access API  ·  Payer-to-Payer Exchange', LW/2, 36);
-
-    var BW = 200;
-    FLOWS.forEach(function(f) {
-      var ea=ENT[f.from], eb=ENT[f.to];
-      var x1 = f.fwd ? ea.cx+BW/2 : ea.cx-BW/2;
-      var x2 = f.fwd ? eb.cx-BW/2 : eb.cx+BW/2;
-      var y  = ea.cy + f.yOff;
-      ctx.setLineDash([3,5]);
-      ctx.beginPath(); ctx.moveTo(x1,y); ctx.lineTo(x2,y);
-      ctx.strokeStyle=f.col+'28'; ctx.lineWidth=1.5; ctx.stroke();
-      ctx.setLineDash([]);
-      ctx.font='500 9.5px Inter,system-ui,sans-serif';
-      ctx.fillStyle=f.col+'bb';
-      ctx.textAlign='center'; ctx.textBaseline='bottom';
-      ctx.fillText(f.lbl, (x1+x2)/2, y-3);
-      var ax = f.fwd ? x2 : x2;
-      var dir = f.fwd ? 1 : -1;
-      ctx.beginPath();
-      ctx.moveTo(ax-dir*8,y-4); ctx.lineTo(ax,y); ctx.lineTo(ax-dir*8,y+4);
-      ctx.strokeStyle=f.col+'80'; ctx.lineWidth=1.5; ctx.stroke();
-    });
-
-    PKTS.forEach(function(p) {
-      p.t = (p.t + p.spd) % 1;
-      var ea=ENT[p.from], eb=ENT[p.to];
-      var x1 = p.fwd ? ea.cx+BW/2 : ea.cx-BW/2;
-      var x2 = p.fwd ? eb.cx-BW/2 : eb.cx+BW/2;
-      var y  = ea.cy + p.yOff;
-      var t  = p.fwd ? p.t : 1-p.t;
-      var px = x1+(x2-x1)*t;
-      var gr=ctx.createRadialGradient(px,y,0,px,y,12);
-      gr.addColorStop(0,p.col+'ff'); gr.addColorStop(1,p.col+'00');
-      ctx.beginPath(); ctx.arc(px,y,12,0,Math.PI*2); ctx.fillStyle=gr; ctx.fill();
-      ctx.beginPath(); ctx.arc(px,y,3.2,0,Math.PI*2); ctx.fillStyle='#fff'; ctx.fill();
-    });
-
-    ENT.forEach(function(e) {
-      var bw=BW, bh=88, bx=e.cx-bw/2, by=e.cy-bh/2;
-      var gl=ctx.createRadialGradient(e.cx,e.cy,10,e.cx,e.cy,90);
-      gl.addColorStop(0,e.col+'18'); gl.addColorStop(1,'rgba(0,0,0,0)');
-      ctx.beginPath(); ctx.arc(e.cx,e.cy,90,0,Math.PI*2); ctx.fillStyle=gl; ctx.fill();
-      rr(ctx,bx,by,bw,bh,14);
-      ctx.fillStyle='rgba(8,18,52,.92)'; ctx.fill();
-      var bg2=ctx.createLinearGradient(bx,by,bx+bw,by+bh);
-      bg2.addColorStop(0,e.col+'62'); bg2.addColorStop(1,e.col+'22');
-      ctx.strokeStyle=bg2; ctx.lineWidth=1.5; ctx.stroke();
-      rr(ctx,bx,by,bw,3,2); ctx.fillStyle=e.col; ctx.fill();
-      ctx.font='700 12px Inter,system-ui,sans-serif';
-      ctx.fillStyle='#fff'; ctx.textAlign='center'; ctx.textBaseline='middle';
-      ctx.fillText(e.lbl, e.cx, e.cy-10);
-      ctx.font='500 10px Inter,system-ui,sans-serif';
-      ctx.fillStyle='rgba(255,255,255,.38)';
-      ctx.fillText(e.sub, e.cx, e.cy+12);
-    });
-
-    var LEG = [
-      ['837 / 835  Claims & Remittance', TX.claim],
-      ['270 / 271  Eligibility',         TX.elig  ],
-      ['278  Prior Authorization',       TX.auth  ],
-      ['FHIR R4 API',                    '#06b6d4'],
-    ];
-    var lx = LW/2 - 420;
-    LEG.forEach(function(item) {
-      ctx.beginPath(); ctx.arc(lx+8, LH-26, 5, 0, Math.PI*2);
-      ctx.fillStyle=item[1]; ctx.fill();
-      ctx.font='500 10px Inter,system-ui,sans-serif';
-      ctx.fillStyle='rgba(255,255,255,.46)';
-      ctx.textAlign='left'; ctx.textBaseline='middle';
-      ctx.fillText(item[0], lx+18, LH-26);
-      lx += 220;
-    });
-
-    requestAnimationFrame(frame);
-  }
-  requestAnimationFrame(frame);
-})();
 </script>
 
 </body>
