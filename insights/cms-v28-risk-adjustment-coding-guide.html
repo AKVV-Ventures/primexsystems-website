@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CMS V28 Is Fully Here. Here's What It Actually Means. - Primex Systems</title>
+  <meta name="description" content="CMS fully implemented the V28 risk adjustment model in 2026. Most organizations still don't understand what changed, what it means for RAF scores, or why their reimbursements shifted." />
+  <!-- Open Graph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Primex Systems" />
+  <meta property="og:title" content="CMS V28 Is Fully Here. Here's What It Actually Means." />
+  <meta property="og:description" content="The V28 transition is complete. Most organizations still don't understand what changed, what it means for RAF scores, or why their reimbursements shifted. A plain-English breakdown." />
+  <meta property="og:url" content="https://primexsystems.org/insights/cms-v28-risk-adjustment-coding-guide.html" />
+  <meta property="og:image" content="https://primexsystems.org/og-article.png" />
+  <meta property="article:author" content="Ajay Chaudhary" />
+  <meta property="article:published_time" content="2026-07-09" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="CMS V28 Is Fully Here. Here's What It Actually Means." />
+  <meta name="twitter:description" content="The V28 transition is complete. Most organizations still don't understand what changed, what it means for RAF scores, or why their reimbursements shifted. A plain-English breakdown." />
+  <meta name="twitter:image" content="https://primexsystems.org/og-article.png" />
+  <link rel="icon" type="image/png" href="../primex-logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      color: #0f172a;
+      background: #ffffff;
+    }
+    :root {
+      --navy:  #040c24;
+      --blue:  #2563eb;
+      --blue-d:#1d4ed8;
+      --s50:   #f8fafc;
+      --s100:  #f1f5f9;
+      --s200:  #e2e8f0;
+      --s400:  #94a3b8;
+      --s600:  #475569;
+      --s700:  #334155;
+      --s900:  #0f172a;
+      --muted: #3d4e63;
+    }
+
+    /* Nav */
+    nav {
+      position: sticky; top: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 clamp(24px, 4vw, 80px); height: 72px;
+      background: rgba(4,12,36,.96);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      box-shadow: 0 4px 24px rgba(0,0,0,.40);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
+    .nav-logo-img { height: 40px; width: auto; }
+    .nav-name { color: rgba(255,255,255,.90); font-size: 19px; font-weight: 700; letter-spacing: -.01em; }
+    .nav-right { display: flex; align-items: center; gap: 8px; }
+    .nav-back {
+      font-size: 13px; font-weight: 500; color: rgba(255,255,255,.60);
+      text-decoration: none; display: flex; align-items: center; gap: 6px;
+      padding: 6px 10px; border-radius: 8px; transition: color .15s, background .15s;
+    }
+    .nav-back:hover { color: #fff; background: rgba(255,255,255,.08); }
+    .nav-cta {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 9px 20px; background: var(--blue); color: #fff;
+      font-size: 14px; font-weight: 700; border-radius: 10px;
+      text-decoration: none; transition: background .15s, transform .1s;
+      box-shadow: 0 2px 14px rgba(37,99,235,.42);
+    }
+    .nav-cta:hover { background: var(--blue-d); transform: translateY(-1px); }
+    @media (max-width: 600px) { nav { padding: 0 20px; } .nav-cta { display: none; } }
+
+    /* Article shell */
+    .article-hero {
+      background: var(--s50);
+      border-bottom: 1px solid var(--s200);
+      padding: 64px 24px 56px;
+      text-align: center;
+    }
+    .article-cat {
+      display: inline-block;
+      font-size: 11px; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--blue);
+      background: #eff6ff; border: 1px solid #dbeafe;
+      border-radius: 6px; padding: 4px 12px; margin-bottom: 24px;
+    }
+    .article-title {
+      font-size: clamp(1.9rem, 4vw, 2.8rem);
+      font-weight: 900; color: var(--s900);
+      letter-spacing: -.03em; line-height: 1.1;
+      max-width: 760px; margin: 0 auto 20px;
+    }
+    .article-sub {
+      font-size: 1.0625rem; color: var(--muted);
+      line-height: 1.7; max-width: 640px; margin: 0 auto 32px;
+    }
+    .article-meta {
+      display: flex; align-items: center; justify-content: center;
+      gap: 20px; flex-wrap: wrap;
+    }
+    .meta-author { display: flex; align-items: center; gap: 10px; }
+    .meta-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      object-fit: cover; object-position: center 10%;
+    }
+    .meta-name { font-size: 13px; font-weight: 700; color: var(--s900); }
+    .meta-role { font-size: 11px; color: var(--s400); }
+    .meta-dot { color: var(--s200); font-size: 18px; }
+    .meta-date { font-size: 13px; color: var(--s600); }
+    .meta-read { font-size: 13px; color: var(--s600); }
+
+    /* Body */
+    .article-body {
+      max-width: 720px; margin: 0 auto;
+      padding: 64px 24px 80px;
+    }
+
+    .article-body p {
+      font-size: 1.0625rem; color: var(--muted);
+      line-height: 1.85; margin-bottom: 24px;
+    }
+    .article-body h2 {
+      font-size: 1.35rem; font-weight: 800; color: var(--s900);
+      letter-spacing: -.02em; margin: 52px 0 18px; padding-top: 4px;
+    }
+    .article-body h3 {
+      font-size: 1.05rem; font-weight: 700; color: var(--s900);
+      letter-spacing: -.01em; margin: 32px 0 12px;
+    }
+    .article-body strong { color: var(--s900); font-weight: 700; }
+    .article-body ul {
+      margin: 0 0 24px 0; padding-left: 0; list-style: none;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .article-body ul li {
+      font-size: 1.0625rem; color: var(--muted); line-height: 1.75;
+      padding-left: 20px; position: relative;
+    }
+    .article-body ul li::before {
+      content: ''; position: absolute; left: 0; top: 10px;
+      width: 6px; height: 6px; border-radius: 50%; background: var(--blue);
+    }
+
+    /* Pull quote */
+    .pull-quote {
+      margin: 40px 0; padding: 28px 32px;
+      border-left: 4px solid var(--blue);
+      background: #eff6ff; border-radius: 0 12px 12px 0;
+    }
+    .pull-quote p {
+      font-size: 1.1rem; font-weight: 600; color: var(--s900);
+      line-height: 1.6; margin: 0; font-style: italic;
+    }
+
+    /* Framework box */
+    .question-block {
+      background: var(--s50); border: 1.5px solid var(--s200);
+      border-radius: 14px; padding: 32px 36px; margin: 40px 0;
+    }
+    .question-block-label {
+      font-size: 10px; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--blue); margin-bottom: 20px;
+    }
+    .question-item {
+      display: flex; gap: 14px; align-items: flex-start; margin-bottom: 16px;
+    }
+    .question-item:last-child { margin-bottom: 0; }
+    .question-num {
+      width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+      background: var(--blue); color: #fff;
+      font-size: 12px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .question-text { font-size: 15px; color: var(--s700); font-weight: 500; line-height: 1.5; padding-top: 4px; }
+
+    /* Example box */
+    .example-box {
+      background: #020813; border-radius: 12px;
+      padding: 28px 32px; margin: 32px 0;
+    }
+    .example-box-label {
+      font-size: 10px; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: rgba(255,255,255,.38); margin-bottom: 16px;
+    }
+    .example-row {
+      display: flex; gap: 12px; align-items: flex-start; margin-bottom: 16px;
+    }
+    .example-row:last-child { margin-bottom: 0; }
+    .example-badge {
+      font-size: 10px; font-weight: 800; letter-spacing: .08em;
+      text-transform: uppercase; padding: 3px 9px; border-radius: 5px;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .badge-before { background: rgba(239,68,68,.18); color: #fca5a5; }
+    .badge-after  { background: rgba(34,197,94,.18); color: #86efac; }
+    .example-text { font-size: 14px; color: rgba(255,255,255,.75); line-height: 1.6; }
+    .example-text code {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 12px; color: #93c5fd;
+      background: rgba(37,99,235,.18); border-radius: 4px;
+      padding: 1px 6px;
+    }
+    .example-text em { color: rgba(255,255,255,.42); font-style: normal; font-size: 12px; }
+
+    /* Stat callout */
+    .stat-row {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+      margin: 40px 0;
+    }
+    .stat-box {
+      background: var(--s50); border: 1.5px solid var(--s200);
+      border-radius: 12px; padding: 20px 22px; text-align: center;
+    }
+    .stat-number { font-size: 2rem; font-weight: 900; color: var(--blue); letter-spacing: -.04em; }
+    .stat-label { font-size: 12px; color: var(--s600); margin-top: 4px; line-height: 1.4; }
+    @media (max-width: 520px) { .stat-row { grid-template-columns: 1fr; } }
+
+    /* Section divider */
+    .article-divider { border: none; border-top: 1px solid var(--s200); margin: 48px 0; }
+
+    /* CTA */
+    .article-cta {
+      background: linear-gradient(135deg, #0d1f48 0%, #112558 55%, #1a3880 100%);
+      border-radius: 18px; padding: 48px 40px; margin-top: 56px; text-align: center;
+    }
+    .article-cta h3 {
+      font-size: 1.4rem; font-weight: 800; color: #fff;
+      letter-spacing: -.02em; margin: 0 0 12px; font-style: normal;
+    }
+    .article-cta p {
+      font-size: 15px; color: rgba(255,255,255,.65);
+      line-height: 1.65; max-width: 480px; margin: 0 auto 28px;
+    }
+    .article-cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-white {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 13px 22px; background: #fff; color: var(--s900);
+      font-size: 14px; font-weight: 700; border-radius: 10px;
+      text-decoration: none; transition: opacity .15s;
+    }
+    .btn-white:hover { opacity: .9; }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 13px 22px; background: rgba(255,255,255,.12);
+      border: 1.5px solid rgba(255,255,255,.24);
+      color: #fff; font-size: 14px; font-weight: 600;
+      border-radius: 10px; text-decoration: none; transition: background .15s;
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,.18); }
+
+    /* Author bio */
+    .author-card {
+      display: flex; gap: 20px; align-items: flex-start;
+      background: var(--s50); border: 1.5px solid var(--s200);
+      border-radius: 14px; padding: 28px 30px; margin-top: 32px;
+    }
+    .author-card-photo {
+      width: 64px; height: 64px; border-radius: 50%;
+      object-fit: cover; object-position: center 10%; flex-shrink: 0;
+    }
+    .author-card-name { font-size: 15px; font-weight: 800; color: var(--s900); margin-bottom: 2px; }
+    .author-card-title { font-size: 11px; font-weight: 700; color: var(--blue); text-transform: uppercase; letter-spacing: .09em; margin-bottom: 10px; }
+    .author-card-bio { font-size: 13.5px; color: var(--muted); line-height: 1.7; margin: 0; }
+
+    /* Footer */
+    footer { background: #020813; padding: 52px 48px 32px; border-top: 1px solid rgba(255,255,255,.06); }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 40px; flex-wrap: wrap; padding-bottom: 36px; border-bottom: 1px solid rgba(255,255,255,.07); }
+    .footer-brand .nav-logo-img { height: 44px; }
+    .footer-brand .nav-name { font-size: 20px; font-weight: 700; }
+    .footer-brand-desc { font-size: 13px; color: rgba(255,255,255,.32); max-width: 280px; margin-top: 14px; line-height: 1.65; }
+    .fcol h4 { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.38); margin-bottom: 16px; }
+    .fcol ul { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+    .fcol a { font-size: 13px; color: rgba(255,255,255,.52); text-decoration: none; transition: color .15s; }
+    .fcol a:hover { color: #fff; }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 26px; font-size: 12px; color: rgba(255,255,255,.24); flex-wrap: wrap; gap: 12px; }
+    @media (max-width: 600px) {
+      footer { padding: 40px 20px 28px; }
+      .footer-top { flex-direction: column; gap: 32px; }
+      .article-cta { padding: 36px 24px; }
+      .question-block { padding: 24px 20px; }
+      .example-box { padding: 22px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">
+    <img src="../primex-logo.png" alt="Primex Systems" class="nav-logo-img" />
+    <span class="nav-name">Primex Systems</span>
+  </a>
+  <div class="nav-right">
+    <a href="index.html" class="nav-back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path stroke-linecap="round" stroke-linejoin="round" d="M7 16l-4-4m0 0l4-4m-4 4h18"/></svg>
+      All Articles
+    </a>
+    <a href="https://calendar.app.google/SgWfVJ3nAmKVeA7N9" target="_blank" rel="noopener" class="nav-cta">
+      Book a Call
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+    </a>
+  </div>
+</nav>
+
+<header class="article-hero">
+  <div class="article-cat">Risk Adjustment &amp; VBC</div>
+  <h1 class="article-title">CMS V28 Is Fully Here. Here's What It Actually Means.</h1>
+  <p class="article-sub">The three-year phase-in is over. As of 2026, CMS has fully implemented the V28 risk adjustment model. Most organizations are still catching up, and the ones that have not adapted yet will feel it in their reimbursements for years to come.</p>
+  <div class="article-meta">
+    <div class="meta-author">
+      <img src="../ajay-headshot-3.png" alt="Ajay Chaudhary" class="meta-avatar" />
+      <div>
+        <div class="meta-name">Ajay Chaudhary</div>
+        <div class="meta-role">Founder &amp; Principal Consultant</div>
+      </div>
+    </div>
+    <span class="meta-dot">·</span>
+    <span class="meta-date">July 9, 2026</span>
+    <span class="meta-dot">·</span>
+    <span class="meta-read">13 min read</span>
+  </div>
+</header>
+
+<article class="article-body">
+
+  <p>Over the past two years, I have had a version of the same conversation dozens of times. A Medicare Advantage plan, a provider group running a value-based contract, or a health system's quality team is looking at their RAF scores and something does not add up. The numbers shifted. Revenue looks different than expected. The coding team swears nothing changed on their end.</p>
+
+  <p>Something did change. It just did not happen on their end.</p>
+
+  <p>In 2024, CMS began phasing in Version 28 of its Hierarchical Condition Category risk adjustment model. The weight was 33% in 2024, 67% in 2025, and 100% in 2026. The phase-in was designed to ease the transition. For many organizations it softened the immediate impact enough that they did not fully feel it until now, when the buffer is gone and V28 is the only model in the room.</p>
+
+  <p>This is the most significant structural change to Medicare Advantage risk adjustment in over a decade. And yet, most of the conversations I have about it reveal a real gap in understanding. Not at the executive level where broad concern exists. The gap is at the operational level, where the actual work of documentation, coding, and data management happens every day.</p>
+
+  <p>This article is meant to close that gap. We will start from the ground floor: what HCC categories are, how RAF scores are built, and why they determine your reimbursement. From there we will look at what V28 specifically changed and what good coding and documentation actually requires under the new model.</p>
+
+  <h2>First: what is CMS-HCC risk adjustment, and why does it exist?</h2>
+
+  <p>Medicare Advantage (MA) plans get paid a set amount per member per month by the federal government. The obvious problem with a flat payment model is that it creates a bad incentive: plans make more money when they enroll healthy people and lose money on sick ones. Left unchecked, that logic leads to plans avoiding complex patients. Those are exactly the people who most need comprehensive coverage.</p>
+
+  <p>Risk adjustment is CMS's answer to that problem. Instead of paying every plan the same amount per member, CMS adjusts the payment based on how sick each member actually is. Sicker members, meaning those with documented chronic conditions, multiple health problems, or complex disease burden, generate higher payments. Healthier members generate lower ones. The goal is to make it financially neutral for a plan to serve a high-needs population versus a low-needs one.</p>
+
+  <p>The tool that makes this work is the <strong>CMS Hierarchical Condition Category model</strong>, or CMS-HCC. It is the system that translates a member's documented medical conditions into a risk score, and that risk score into a dollar amount.</p>
+
+  <h2>HCC categories: what they are and how they work</h2>
+
+  <p>Think of an HCC, which stands for Hierarchical Condition Category, as a bucket. CMS has grouped virtually every human medical condition into these buckets based on how much that condition costs to treat, on average, across a large population of Medicare members.</p>
+
+  <p>There are thousands of ICD-10 diagnosis codes in the medical billing world. These are the standardized codes providers use to document every condition they diagnose and treat. Under CMS-HCC, those thousands of codes map to a much smaller set of HCC categories. Each category represents a group of related conditions with similar cost patterns.</p>
+
+  <p>The word 'hierarchical' is doing important work in that name. Within any given HCC category, conditions are ranked by how serious they are. If a patient has multiple diagnoses that fall within the same category, only the most severe one counts. You do not get credit for both a mild and a severe version of the same condition. The more severe one captures everything below it in the ranking.</p>
+
+  <p>A simple example: a patient with Chronic Kidney Disease Stage 3 and CKD Stage 4 does not get credit for both. Stage 4 is more serious, sits higher in the hierarchy, and captures Stage 3. Only Stage 4 maps to the HCC that affects payment. This prevents double-counting of conditions along a severity range.</p>
+
+  <div class="pull-quote">
+    <p>Thousands of diagnosis codes. A smaller set of HCC buckets. Each bucket has a weight. Add up the weights and you have a RAF score. The RAF score determines the check.</p>
+  </div>
+
+  <p>Each HCC bucket has a coefficient, which is basically a weight. That weight represents how much a condition in that category increases a member's expected cost compared to an average Medicare member. The weights come from actual claims data: CMS looks at what conditions predict what spending, and sets the numbers accordingly.</p>
+
+  <p>A few things that are critical to understand about how HCCs work in practice:</p>
+
+  <ul>
+    <li><strong>Conditions must be coded every year.</strong> A diagnosis documented in 2024 does not automatically carry into 2025 or 2026 risk adjustment. Chronic conditions must be re-evaluated, documented as current and active, and addressed during a clinical encounter within each plan year. This is one of the most commonly misunderstood parts of the model, and one of the most expensive to get wrong.</li>
+    <li><strong>The diagnosis must appear on a claim.</strong> A condition mentioned in a provider's notes but never attached to a submitted claim does not capture an HCC. The documentation has to make it all the way through the billing process.</li>
+    <li><strong>Not all diagnoses map to an HCC.</strong> Many common conditions like a sprained ankle, seasonal allergies, or routine lab work have no HCC equivalent because they do not meaningfully predict future cost. Only conditions with significant cost implications generate HCC credit.</li>
+  </ul>
+
+  <h2>RAF scores: the number that determines your reimbursement</h2>
+
+  <p>Once you understand HCC categories and their weights, the RAF score is straightforward. RAF stands for Risk Adjustment Factor. It is a single number that summarizes a member's total predicted cost burden compared to an average Medicare member.</p>
+
+  <p>An average member has a RAF score of approximately 1.0. A healthier-than-average member, say someone younger with fewer chronic conditions and lower care needs, might have a RAF of 0.6 or 0.7. A complex patient with multiple documented chronic conditions like heart failure, diabetes with complications, CKD, or chronic lung disease might carry a RAF of 2.0, 2.5, or higher.</p>
+
+  <p>Think of a RAF score like a credit score, except instead of predicting whether you will pay back a loan, it predicts how much healthcare a person is likely to need in the next year. A higher score means higher expected cost, which means a higher monthly payment to the plan serving that person.</p>
+
+  <p>CMS uses this number to calculate how much a plan gets paid for each member each month:</p>
+
+  <div class="example-box">
+    <div class="example-box-label">How the payment math works</div>
+    <div class="example-row">
+      <div class="example-text">Base monthly rate: <code>$1,000/member</code> x RAF score: <code>1.0</code> = Payment: <code>$1,000/month</code></div>
+    </div>
+    <div class="example-row">
+      <div class="example-text">Base monthly rate: <code>$1,000/member</code> x RAF score: <code>1.5</code> = Payment: <code>$1,500/month</code></div>
+    </div>
+    <div class="example-row">
+      <div class="example-text">Base monthly rate: <code>$1,000/member</code> x RAF score: <code>0.8</code> = Payment: <code>$800/month</code></div>
+    </div>
+  </div>
+
+  <p>Scale that across a plan with tens of thousands of members and a small shift in average RAF score, even just 0.05 or 0.1, translates into millions of dollars annually. The revenue that flows from RAF scores is not abstract budget math. It is what pays for care management programs, supplemental benefits, provider contracts, and the operational infrastructure of the plan itself.</p>
+
+  <div class="stat-row">
+    <div class="stat-box">
+      <div class="stat-number">$12M</div>
+      <div class="stat-label">Annual revenue impact of a 0.1 RAF decrease on a 10,000-member plan at $1,000/month base rate</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-number">100%</div>
+      <div class="stat-label">V28 weight as of 2026. No more blended model, no more buffer.</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-number">1x/year</div>
+      <div class="stat-label">How often each chronic condition must be documented and coded to count toward risk adjustment</div>
+    </div>
+  </div>
+
+  <h2>What V28 actually changed</h2>
+
+  <p>V28 is not a tweak to V24. It is a structural rebuild of the same model, using updated data and updated assumptions about what conditions actually predict cost in a modern Medicare population. A good way to think about it: imagine you built a salary guide for jobs in 2014, then tried to use it to hire in 2018. The jobs exist, some titles are the same, but the pay scale no longer reflects what is actually happening in the market. CMS calibrated V28 using 2018 claims data. V24 was calibrated on 2014 data. Four years of medical cost changes, prescription drug pricing shifts, and chronic disease management evolution are baked into the difference.</p>
+
+  <p>Here is what specifically changed:</p>
+
+  <h3>The HCC category structure was reorganized</h3>
+
+  <p>V28 introduced new HCC categories, consolidated others, and removed some that existed in V24. This means the same diagnosis code that mapped to a payment HCC in V24 may map to a different HCC in V28, or to no HCC at all. Plans and provider groups that built their HCC capture workflows around V24 mappings are, in some cases, chasing codes that no longer carry the same weight they used to.</p>
+
+  <h3>Coefficients changed across the board</h3>
+
+  <p>Even where the same HCC category exists in both V24 and V28, the weight attached to it changed. Some conditions carry more weight in V28 because updated data showed they predict higher costs than previously understood. Others carry less. The net result for most organizations was a downward shift in average RAF scores, because many of the conditions that were over-weighted in V24 relative to actual cost patterns were recalibrated lower in V28.</p>
+
+  <h3>Certain diagnoses lost HCC credit entirely</h3>
+
+  <p>CMS removed several diagnostic categories from the payment HCC list. Some were removed because they were not meaningfully predictive of cost in the 2018 data. Others were removed because they had been associated with coding practices that generated RAF credit without reflecting true patient complexity. If your organization had significant RAF coming from categories that V28 eliminated, that revenue is gone regardless of how well you document.</p>
+
+  <h3>New conditions gained HCC status</h3>
+
+  <p>V28 also added new payment HCC categories for conditions that were not covered in V24. This is an opportunity that many organizations have not fully capitalized on yet. Conditions that providers have been documenting for years but that generated no HCC credit because they did not map to a V24 payment category may now map to a V28 HCC. Organizations that audit their member populations against V28 mappings, not V24, will find some of these.</p>
+
+  <h3>Specificity requirements increased</h3>
+
+  <p>V28 relies more heavily on precise ICD-10 coding. Where V24 sometimes allowed a broad, unspecified code to map to a payment HCC, V28 in many cases requires the more specific version of that same code. An unspecified code might map to nothing in V28, while the correctly specified version of the same clinical condition maps to a meaningful HCC. This is where documentation quality and coding precision connect most directly to revenue.</p>
+
+  <h2>What 'quality coding' actually means under V28</h2>
+
+  <p>Coding quality under V28 comes down to one word: <strong>specificity</strong>. Not volume. Not the number of diagnoses on a claim. Specificity is the degree to which the code selected accurately and completely captures the clinical reality of what is going on with a patient.</p>
+
+  <p>The ICD-10 code set was built for this level of specificity. It has thousands of codes precisely because human illness is specific. Type 2 diabetes is not just Type 2 diabetes. It is Type 2 diabetes with or without complications, and if with complications, which organ system, and to what severity. Each of those distinctions maps to a different code, and under V28, to a different HCC outcome.</p>
+
+  <div class="example-box">
+    <div class="example-box-label">Specificity in practice: same patient, different codes</div>
+    <div class="example-row">
+      <div class="example-badge badge-before">V28: No HCC</div>
+      <div class="example-text"><code>E11.9</code>: Type 2 diabetes mellitus without complications <em>maps to no payment HCC under V28 alone</em></div>
+    </div>
+    <div class="example-row">
+      <div class="example-badge badge-after">V28: HCC credit</div>
+      <div class="example-text"><code>E11.65</code> + <code>N18.32</code>: Type 2 diabetes with diabetic CKD, Stage 3b <em>maps to multiple payment HCCs with meaningful RAF contribution</em></div>
+    </div>
+  </div>
+
+  <p>The clinical picture may be identical in both examples. The same patient, the same conditions, the same disease burden. The difference is whether the provider documented to the level of specificity the model requires. Under V24, the broad code sometimes still captured partial credit. Under V28, it does not.</p>
+
+  <p>This is what we mean when we say coding quality is a documentation problem before it is a coding problem. The coder can only work with what the provider put in the note. If the provider documented 'Type 2 diabetes' without specifying the CKD stage, the coder cannot fill in that gap. The specificity has to start in the clinical encounter.</p>
+
+  <h2>The annual documentation requirement: the rule most organizations underestimate</h2>
+
+  <p>This deserves its own section because it is, in my experience, the single most consistently underestimated operational requirement in risk adjustment programs.</p>
+
+  <p>For a condition to count toward a member's RAF score in a given plan year, it must be documented as <strong>current and active</strong> during a clinical encounter that occurs within that plan year, and it must appear on a submitted claim from that encounter.</p>
+
+  <p>Not referenced. Not listed on a historical problem list. Not mentioned in passing as a prior diagnosis. Documented as current. Addressed during the encounter. On the claim.</p>
+
+  <p>Think of it like renewing your car registration. The fact that you renewed it last year does not mean it is valid this year. You have to go back every single year and confirm it is still current. Chronic conditions work exactly the same way under risk adjustment. Last year's documentation does not carry over.</p>
+
+  <p>The practical impact of this rule is enormous. A patient who had all of their chronic conditions correctly documented and coded in 2024 will have zero RAF contribution from those conditions in 2026 if they do not have an encounter in 2026 where those conditions are actively addressed.</p>
+
+  <div class="pull-quote">
+    <p>Coding quality is a documentation problem before it is a coding problem. The coder can only code what the provider put in the note, and specificity has to start in the clinical encounter.</p>
+  </div>
+
+  <p>This is why annual wellness visits and comprehensive care visits are so important under risk adjustment. They create a structured, dedicated opportunity to review a member's full condition profile, document current status for each chronic condition, and address any gaps. Plans and provider groups that run disciplined annual wellness visit programs with structured HCC-capture workflows consistently outperform those that rely on routine encounter documentation alone.</p>
+
+  <p>'Addressed' is a term that matters here. For risk adjustment audit purposes, 'addressed' means there is clinical evidence in the note that the provider evaluated the current status of the condition, not just acknowledged its existence. Current medication, current management plan, any changes in status. These are the signals that separate a condition actively managed from one passively listed.</p>
+
+  <h2>What the documentation audit trail looks like</h2>
+
+  <p>CMS runs a program called RADV (Risk Adjustment Data Validation). It is an audit process where CMS pulls a sample of medical records and checks whether the HCC diagnoses submitted by plans are actually supported by the clinical documentation. Plans found to have submitted unsupported HCCs face repayment demands.</p>
+
+  <p>Under RADV scrutiny, there are patterns that consistently fail:</p>
+
+  <div class="question-block">
+    <div class="question-block-label">Common documentation failures under RADV audit</div>
+    <div class="question-item">
+      <div class="question-num">1</div>
+      <div class="question-text"><strong>Copy-forward notes.</strong> Encounter notes that are clearly carried forward from a prior visit without evidence of current clinical assessment. If a reviewer sees the same note repeated verbatim across multiple encounters, the diagnoses in that note lose their support. It is like submitting last year's physical exam results as proof of your health today. An auditor knows it is not from this visit.</div>
+    </div>
+    <div class="question-item">
+      <div class="question-num">2</div>
+      <div class="question-text"><strong>Problem list diagnoses without encounter support.</strong> A condition on a patient's EHR problem list that never appears in an encounter note or on a claim for the relevant plan year does not count, even if it is a real, ongoing condition.</div>
+    </div>
+    <div class="question-item">
+      <div class="question-num">3</div>
+      <div class="question-text"><strong>Unspecified codes where specificity exists.</strong> Submitting a broad, unspecified ICD-10 code when the clinical record contains enough information to support a specific code. Auditors look for this. It is often a sign of coding that was not fully worked through.</div>
+    </div>
+    <div class="question-item">
+      <div class="question-num">4</div>
+      <div class="question-text"><strong>Diagnoses coded without a treating clinician's signature.</strong> In some cases, diagnoses appear on claims that are not supported by a signed encounter note from a qualified provider. The process broke down somewhere between the clinical record and the claim.</div>
+    </div>
+  </div>
+
+  <h2>The operational checklist for V28 readiness</h2>
+
+  <p>Based on what we have seen across value-based care engagements, here is where organizations need to focus to operate cleanly under V28:</p>
+
+  <h3>Re-map your population against V28, not V24</h3>
+
+  <p>Run your member population's historical diagnoses through V28 HCC mappings and compare the output to what you have been assuming. You will find HCC categories you thought you had that no longer apply, and you may find conditions that now carry HCC credit in V28 that did not in V24. This gap analysis is the starting point for understanding your true V28 RAF exposure.</p>
+
+  <h3>Train providers on the specificity standard</h3>
+
+  <p>Providers need to understand that under V28, how they document is as important as what they document. Targeted training on the highest-impact categories like CKD staging, diabetes complication documentation, BMI and obesity-related conditions, cardiac conditions, and mental health diagnoses will yield faster results than broad general training.</p>
+
+  <h3>Audit your problem lists</h3>
+  <p>EHR problem lists are often a mix of accurately coded current conditions, outdated diagnoses that have not been resolved, incorrectly specified codes, and conditions that were never properly linked to encounters. An unaudited problem list creates both a revenue gap and an audit risk at the same time.</p>
+
+  <h3>Build an annual wellness visit program with HCC capture discipline</h3>
+  <p>If your annual wellness visit program is not structured around systematic HCC review, you are leaving the most reliable capture opportunity on the table. A well-run annual wellness visit should result in every current chronic condition being documented, coded to specificity, addressed in the note, and submitted on the claim.</p>
+
+  <h3>Review your data pipelines for V28 logic</h3>
+  <p>If your risk adjustment reporting, gap closure tools, or care management workflows were built on V24 HCC logic, they will give you incorrect signals under V28. A tool that flags 'open HCC gaps' against a V24 mapping is chasing gaps that may not exist in V28, or missing ones that do. The underlying mapping tables need to reflect the current model.</p>
+
+  <hr class="article-divider" />
+
+  <p>V28 is not a documentation inconvenience or a compliance checkbox. It is a fundamental reset of the financial model underlying Medicare Advantage. The organizations that treat it that way, rebuild their documentation, coding, and data workflows around how V28 actually works, will hold their revenue and find new capture opportunities. The ones that treat it as a policy change to acknowledge and move on from will keep watching their RAF scores drift in a direction they do not fully understand.</p>
+
+  <p>The model has changed. The documentation standard that supports it has to change with it. That work is operational, unglamorous, and ongoing, which is exactly why most organizations have not finished it yet.</p>
+
+  <div class="article-cta">
+    <h3>Is your organization V28-ready?</h3>
+    <p>We work with MA plans, provider groups, and value-based care organizations to audit HCC capture gaps, rebuild V28-native workflows, and align documentation standards with what the model actually requires.</p>
+    <div class="article-cta-btns">
+      <a href="https://calendar.app.google/SgWfVJ3nAmKVeA7N9" target="_blank" rel="noopener" class="btn-white">
+        Book a Call
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+      <a href="../index.html#contact" class="btn-ghost">Send a Message</a>
+    </div>
+  </div>
+
+  <div class="author-card">
+    <img src="../ajay-headshot-3.png" alt="Ajay Chaudhary" class="author-card-photo" />
+    <div>
+      <div class="author-card-name">Ajay Chaudhary</div>
+      <div class="author-card-title">Founder &amp; Principal Consultant, Primex Systems</div>
+      <p class="author-card-bio">15+ years working inside healthcare's data and technology infrastructure. Risk adjustment models, value-based care contract operations, EDI and FHIR pipelines, and the clinical documentation workflows that determine what gets coded, what gets paid, and what gets audited.</p>
+    </div>
+  </div>
+
+</article>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="../index.html" class="nav-logo">
+          <img src="../primex-logo.png" alt="Primex Systems" class="nav-logo-img" />
+          <span class="nav-name">Primex Systems</span>
+        </a>
+        <p class="footer-brand-desc">Healthcare technology consulting, workflow automation, system integrations, and FHIR API compliance. We build systems that work.</p>
+      </div>
+      <div class="fcol">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="../index.html#industries">Who We Serve</a></li>
+          <li><a href="../index.html#how">How We Work</a></li>
+          <li><a href="../index.html#about">About Us</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="../index.html#services">Workflow Automation</a></li>
+          <li><a href="../index.html#services">System Integrations</a></li>
+          <li><a href="../index.html#services">Data &amp; Security</a></li>
+          <li><a href="../index.html#services">FHIR API Implementation</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <h4>Insights</h4>
+        <ul>
+          <li><a href="index.html">All Articles</a></li>
+          <li><a href="your-ai-problem-is-a-data-problem.html">AI &amp; Data Strategy</a></li>
+          <li><a href="cms-v28-risk-adjustment-coding-guide.html">Risk Adjustment &amp; VBC</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:hello@primexsystems.org">hello@primexsystems.org</a></li>
+          <li><a href="https://calendar.app.google/SgWfVJ3nAmKVeA7N9" target="_blank" rel="noopener">Book a Call</a></li>
+          <li><a href="../index.html#contact">Send a Message</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Primex Systems. All Rights Reserved.</span>
+      <span>Where Healthcare Workflows Meet Working Systems</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
