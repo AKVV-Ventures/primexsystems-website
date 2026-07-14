@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Claims data is never current. Your value-based contract assumes it is. - Primex Systems</title>
+  <meta name="description" content="Every VBC decision your team makes today is built on claims data that is 60 to 90 days old. Here is why the lag exists, what it costs you in real operations, and how to build a data-aware VBC workflow." />
+  <!-- Open Graph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Primex Systems" />
+  <meta property="og:title" content="Claims data is never current. Your value-based contract assumes it is." />
+  <meta property="og:description" content="Every VBC decision your team makes today is built on claims data that is 60 to 90 days old. Here is why the lag exists, what it costs you in real operations, and how to build a data-aware VBC workflow." />
+  <meta property="og:url" content="https://primexsystems.org/insights/claims-data-lag-value-based-contracts.html" />
+  <meta property="og:image" content="https://primexsystems.org/og-article.png" />
+  <meta property="article:author" content="Ajay Chaudhary" />
+  <meta property="article:published_time" content="2026-07-14" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Claims data is never current. Your value-based contract assumes it is." />
+  <meta name="twitter:description" content="Every VBC decision your team makes today is built on claims data that is 60 to 90 days old. Here is why the lag exists, what it costs you in real operations, and how to build a data-aware VBC workflow." />
+  <meta name="twitter:image" content="https://primexsystems.org/og-article.png" />
+  <link rel="icon" type="image/png" href="../primex-logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      color: #0f172a;
+      background: #ffffff;
+    }
+    :root {
+      --navy:  #040c24;
+      --blue:  #2563eb;
+      --blue-d:#1d4ed8;
+      --s50:   #f8fafc;
+      --s100:  #f1f5f9;
+      --s200:  #e2e8f0;
+      --s400:  #94a3b8;
+      --s600:  #475569;
+      --s700:  #334155;
+      --s900:  #0f172a;
+      --muted: #3d4e63;
+    }
+
+    /* Nav */
+    nav {
+      position: sticky; top: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 clamp(24px, 4vw, 80px); height: 72px;
+      background: rgba(4,12,36,.96);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      box-shadow: 0 4px 24px rgba(0,0,0,.40);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
+    .nav-logo-img { height: 40px; width: auto; }
+    .nav-name { color: rgba(255,255,255,.90); font-size: 19px; font-weight: 700; letter-spacing: -.01em; }
+    .nav-right { display: flex; align-items: center; gap: 8px; }
+    .nav-back {
+      font-size: 13px; font-weight: 500; color: rgba(255,255,255,.60);
+      text-decoration: none; display: flex; align-items: center; gap: 6px;
+      padding: 6px 10px; border-radius: 8px; transition: color .15s, background .15s;
+    }
+    .nav-back:hover { color: #fff; background: rgba(255,255,255,.08); }
+    .nav-cta {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 9px 20px; background: var(--blue); color: #fff;
+      font-size: 14px; font-weight: 700; border-radius: 10px;
+      text-decoration: none; transition: background .15s, transform .1s;
+      box-shadow: 0 2px 14px rgba(37,99,235,.42);
+    }
+    .nav-cta:hover { background: var(--blue-d); transform: translateY(-1px); }
+    @media (max-width: 600px) { nav { padding: 0 20px; } .nav-cta { display: none; } }
+
+    /* Article shell */
+    .article-hero {
+      background: var(--s50);
+      border-bottom: 1px solid var(--s200);
+      padding: 64px 24px 56px;
+      text-align: center;
+    }
+    .article-cat {
+      display: inline-block;
+      font-size: 11px; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--blue);
+      background: #eff6ff; border: 1px solid #dbeafe;
+      border-radius: 6px; padding: 4px 12px; margin-bottom: 24px;
+    }
+    .article-title {
+      font-size: clamp(1.9rem, 4vw, 2.8rem);
+      font-weight: 900; color: var(--s900);
+      letter-spacing: -.03em; line-height: 1.1;
+      max-width: 760px; margin: 0 auto 20px;
+    }
+    .article-sub {
+      font-size: 1.0625rem; color: var(--muted);
+      line-height: 1.7; max-width: 640px; margin: 0 auto 32px;
+    }
+    .article-meta {
+      display: flex; align-items: center; justify-content: center;
+      gap: 20px; flex-wrap: wrap;
+    }
+    .meta-author { display: flex; align-items: center; gap: 10px; }
+    .meta-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      object-fit: cover; object-position: center 10%;
+    }
+    .meta-name { font-size: 13px; font-weight: 700; color: var(--s900); }
+    .meta-role { font-size: 11px; color: var(--s400); }
+    .meta-dot { color: var(--s200); font-size: 18px; }
+    .meta-date { font-size: 13px; color: var(--s600); }
+    .meta-read { font-size: 13px; color: var(--s600); }
+
+    /* Body */
+    .article-body {
+      max-width: 720px; margin: 0 auto;
+      padding: 64px 24px 80px;
+    }
+    .article-body p {
+      font-size: 1.0625rem; color: var(--muted);
+      line-height: 1.85; margin-bottom: 24px;
+    }
+    .article-body h2 {
+      font-size: 1.35rem; font-weight: 800; color: var(--s900);
+      letter-spacing: -.02em; margin: 52px 0 18px; padding-top: 4px;
+    }
+    .article-body h3 {
+      font-size: 1.05rem; font-weight: 700; color: var(--s900);
+      letter-spacing: -.01em; margin: 32px 0 12px;
+    }
+    .article-body strong { color: var(--s900); font-weight: 700; }
+    .article-body ul {
+      margin: 0 0 24px 0; padding-left: 0; list-style: none;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .article-body ul li {
+      font-size: 1.0625rem; color: var(--muted); line-height: 1.75;
+      padding-left: 20px; position: relative;
+    }
+    .article-body ul li::before {
+      content: ''; position: absolute; left: 0; top: 10px;
+      width: 6px; height: 6px; border-radius: 50%; background: var(--blue);
+    }
+
+    /* Pull quote */
+    .pull-quote {
+      margin: 40px 0; padding: 28px 32px;
+      border-left: 4px solid var(--blue);
+      background: #eff6ff; border-radius: 0 12px 12px 0;
+    }
+    .pull-quote p {
+      font-size: 1.1rem; font-weight: 600; color: var(--s900);
+      line-height: 1.6; margin: 0; font-style: italic;
+    }
+
+    /* Framework box */
+    .question-block {
+      background: var(--s50); border: 1.5px solid var(--s200);
+      border-radius: 14px; padding: 32px 36px; margin: 40px 0;
+    }
+    .question-block-label {
+      font-size: 10px; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--blue); margin-bottom: 20px;
+    }
+    .question-item {
+      display: flex; gap: 14px; align-items: flex-start; margin-bottom: 16px;
+    }
+    .question-item:last-child { margin-bottom: 0; }
+    .question-num {
+      width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+      background: var(--blue); color: #fff;
+      font-size: 12px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .question-text { font-size: 15px; color: var(--s700); font-weight: 500; line-height: 1.5; padding-top: 4px; }
+
+    /* Example box */
+    .example-box {
+      background: #020813; border-radius: 12px;
+      padding: 28px 32px; margin: 32px 0;
+    }
+    .example-box-label {
+      font-size: 10px; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: rgba(255,255,255,.38); margin-bottom: 16px;
+    }
+    .example-row {
+      display: flex; gap: 12px; align-items: flex-start; margin-bottom: 16px;
+    }
+    .example-row:last-child { margin-bottom: 0; }
+    .example-badge {
+      font-size: 10px; font-weight: 800; letter-spacing: .08em;
+      text-transform: uppercase; padding: 3px 9px; border-radius: 5px;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .badge-before { background: rgba(239,68,68,.18); color: #fca5a5; }
+    .badge-after  { background: rgba(34,197,94,.18);  color: #86efac; }
+    .badge-gap    { background: rgba(251,191,36,.18);  color: #fcd34d; }
+    .example-text { font-size: 14px; color: rgba(255,255,255,.75); line-height: 1.6; }
+    .example-text strong { color: rgba(255,255,255,.92); }
+
+    /* Stat callout */
+    .stat-row {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+      margin: 40px 0;
+    }
+    .stat-box {
+      background: var(--s50); border: 1.5px solid var(--s200);
+      border-radius: 12px; padding: 20px 22px; text-align: center;
+    }
+    .stat-number { font-size: 2rem; font-weight: 900; color: var(--blue); letter-spacing: -.04em; }
+    .stat-label { font-size: 12px; color: var(--s600); margin-top: 4px; line-height: 1.4; }
+    @media (max-width: 520px) { .stat-row { grid-template-columns: 1fr; } }
+
+    /* Pipeline visual */
+    .pipeline {
+      display: flex; align-items: center; gap: 0;
+      background: var(--s50); border: 1.5px solid var(--s200);
+      border-radius: 14px; padding: 28px 24px; margin: 32px 0;
+      overflow-x: auto;
+    }
+    .pipeline-step {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 8px; flex-shrink: 0; min-width: 80px;
+    }
+    .pipeline-dot {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: var(--blue); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 800; flex-shrink: 0;
+    }
+    .pipeline-label { font-size: 10px; font-weight: 700; color: var(--s700); text-align: center; line-height: 1.3; }
+    .pipeline-time  { font-size: 9px; color: var(--s400); text-align: center; }
+    .pipeline-arrow { color: var(--s200); font-size: 20px; padding: 0 4px; flex-shrink: 0; margin-bottom: 18px; }
+
+    /* Section divider */
+    .article-divider { border: none; border-top: 1px solid var(--s200); margin: 48px 0; }
+
+    /* CTA */
+    .article-cta {
+      background: linear-gradient(135deg, #0d1f48 0%, #112558 55%, #1a3880 100%);
+      border-radius: 18px; padding: 48px 40px; margin-top: 56px; text-align: center;
+    }
+    .article-cta h3 {
+      font-size: 1.4rem; font-weight: 800; color: #fff;
+      letter-spacing: -.02em; margin: 0 0 12px; font-style: normal;
+    }
+    .article-cta p {
+      font-size: 15px; color: rgba(255,255,255,.65);
+      line-height: 1.65; max-width: 480px; margin: 0 auto 28px;
+    }
+    .article-cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-white {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 13px 22px; background: #fff; color: var(--s900);
+      font-size: 14px; font-weight: 700; border-radius: 10px;
+      text-decoration: none; transition: opacity .15s;
+    }
+    .btn-white:hover { opacity: .9; }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 13px 22px; background: rgba(255,255,255,.12);
+      border: 1.5px solid rgba(255,255,255,.24);
+      color: #fff; font-size: 14px; font-weight: 600;
+      border-radius: 10px; text-decoration: none; transition: background .15s;
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,.18); }
+
+    /* Author bio */
+    .author-card {
+      display: flex; gap: 20px; align-items: flex-start;
+      background: var(--s50); border: 1.5px solid var(--s200);
+      border-radius: 14px; padding: 28px 30px; margin-top: 32px;
+    }
+    .author-card-photo {
+      width: 64px; height: 64px; border-radius: 50%;
+      object-fit: cover; object-position: center 10%; flex-shrink: 0;
+    }
+    .author-card-name { font-size: 15px; font-weight: 800; color: var(--s900); margin-bottom: 2px; }
+    .author-card-title { font-size: 11px; font-weight: 700; color: var(--blue); text-transform: uppercase; letter-spacing: .09em; margin-bottom: 10px; }
+    .author-card-bio { font-size: 13.5px; color: var(--muted); line-height: 1.7; margin: 0; }
+
+    /* Footer */
+    footer { background: #020813; padding: 52px 48px 32px; border-top: 1px solid rgba(255,255,255,.06); }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 40px; flex-wrap: wrap; padding-bottom: 36px; border-bottom: 1px solid rgba(255,255,255,.07); }
+    .footer-brand .nav-logo-img { height: 44px; }
+    .footer-brand .nav-name { font-size: 20px; font-weight: 700; }
+    .footer-brand-desc { font-size: 13px; color: rgba(255,255,255,.32); max-width: 280px; margin-top: 14px; line-height: 1.65; }
+    .fcol h4 { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.38); margin-bottom: 16px; }
+    .fcol ul { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+    .fcol a { font-size: 13px; color: rgba(255,255,255,.52); text-decoration: none; transition: color .15s; }
+    .fcol a:hover { color: #fff; }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 26px; font-size: 12px; color: rgba(255,255,255,.24); flex-wrap: wrap; gap: 12px; }
+    @media (max-width: 600px) {
+      footer { padding: 40px 20px 28px; }
+      .footer-top { flex-direction: column; gap: 32px; }
+      .article-cta { padding: 36px 24px; }
+      .question-block { padding: 24px 20px; }
+      .example-box { padding: 22px 20px; }
+      .pipeline { padding: 20px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">
+    <img src="../primex-logo.png" alt="Primex Systems" class="nav-logo-img" />
+    <span class="nav-name">Primex Systems</span>
+  </a>
+  <div class="nav-right">
+    <a href="index.html" class="nav-back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path stroke-linecap="round" stroke-linejoin="round" d="M7 16l-4-4m0 0l4-4m-4 4h18"/></svg>
+      All Articles
+    </a>
+    <a href="https://calendar.app.google/SgWfVJ3nAmKVeA7N9" target="_blank" rel="noopener" class="nav-cta">
+      Book a Call
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+    </a>
+  </div>
+</nav>
+
+<header class="article-hero">
+  <div class="article-cat">Value-Based Care &amp; Analytics</div>
+  <h1 class="article-title">Claims data is never current. Your value-based contract assumes it is.</h1>
+  <p class="article-sub">Every Monday morning, someone at a health plan or provider group pulls a utilization report and makes decisions from it. Most of them do not know they are looking at a picture of the world from 90 days ago.</p>
+  <div class="article-meta">
+    <div class="meta-author">
+      <img src="../ajay-headshot-3.png" alt="Ajay Chaudhary" class="meta-avatar" />
+      <div>
+        <div class="meta-name">Ajay Chaudhary</div>
+        <div class="meta-role">Founder &amp; Principal Consultant</div>
+      </div>
+    </div>
+    <span class="meta-dot">·</span>
+    <span class="meta-date">July 14, 2026</span>
+    <span class="meta-dot">·</span>
+    <span class="meta-read">13 min read</span>
+  </div>
+</header>
+
+<article class="article-body">
+
+  <p>This is the conversation I have had more times than I can count. A care management director is frustrated that their outreach program is not moving the needle. A CFO is confused about why their cost trend looks better than what the actuaries are projecting. A quality team is chasing HEDIS gaps that seem to close on their own.</p>
+
+  <p>In almost every case, when we trace the problem back to its root, we land in the same place: the data being used to make decisions is not as current as anyone assumes. Claims data, which is the backbone of nearly every VBC workflow, does not travel in real time. It travels through a long pipeline with multiple stops, and by the time it appears in a report, the world has moved on.</p>
+
+  <p>This is not a technology failure. It is not a vendor problem. It is simply how claims move through the healthcare system. But most VBC teams have never sat down and mapped out exactly how long that journey takes, which means they are making forward-looking decisions on backward-looking data without fully realizing it.</p>
+
+  <h2>What happens between a patient visit and a line in your report</h2>
+
+  <p>The journey of a claim is longer than most people picture. Here is what it actually looks like from the moment a patient leaves the office to the moment that visit shows up as a data point in your VBC dashboard.</p>
+
+  <div class="pipeline">
+    <div class="pipeline-step">
+      <div class="pipeline-dot">1</div>
+      <div class="pipeline-label">Patient visit</div>
+      <div class="pipeline-time">Day 0</div>
+    </div>
+    <div class="pipeline-arrow">›</div>
+    <div class="pipeline-step">
+      <div class="pipeline-dot">2</div>
+      <div class="pipeline-label">Clinical coding &amp; billing</div>
+      <div class="pipeline-time">Day 3–30</div>
+    </div>
+    <div class="pipeline-arrow">›</div>
+    <div class="pipeline-step">
+      <div class="pipeline-dot">3</div>
+      <div class="pipeline-label">Clearinghouse validation</div>
+      <div class="pipeline-time">Day 1–3</div>
+    </div>
+    <div class="pipeline-arrow">›</div>
+    <div class="pipeline-step">
+      <div class="pipeline-dot">4</div>
+      <div class="pipeline-label">Payer adjudication</div>
+      <div class="pipeline-time">Day 14–45</div>
+    </div>
+    <div class="pipeline-arrow">›</div>
+    <div class="pipeline-step">
+      <div class="pipeline-dot">5</div>
+      <div class="pipeline-label">835 remittance &amp; load</div>
+      <div class="pipeline-time">Day 7–14</div>
+    </div>
+    <div class="pipeline-arrow">›</div>
+    <div class="pipeline-step">
+      <div class="pipeline-dot">6</div>
+      <div class="pipeline-label">Data warehouse &amp; reporting</div>
+      <div class="pipeline-time">Day 1–14</div>
+    </div>
+  </div>
+
+  <p>Every step takes time, and the steps do not always run back to back. Providers have up to 365 days to submit a claim after the date of service. Many submit within 30 days, but small practices, rural providers, and hospital outpatient departments often run later. The clearinghouse validates the format and routes it, typically within a few days. The payer then adjudicates: they check eligibility, apply benefit rules, coordinate benefits if needed, and either pay, deny, or pend the claim for more information. That process alone can take two to six weeks. The 835 remittance file then travels back, gets loaded into the billing system and, eventually, into a data warehouse where analysts can see it.</p>
+
+  <p>Think of it like sending a letter through a postal system that has six different sorting facilities, each with its own processing team and queue. The letter left the doctor's office. You just do not know which stop it is currently sitting at, or how many stops are left.</p>
+
+  <div class="stat-row">
+    <div class="stat-box">
+      <div class="stat-number">60–120</div>
+      <div class="stat-label">Days for a claim to reach a mature, reportable state in most health plans</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-number">365</div>
+      <div class="stat-label">Days providers are typically allowed to submit a claim after the date of service</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-number">25–35%</div>
+      <div class="stat-label">Of claims for a given service month still in transit at the 45-day mark</div>
+    </div>
+  </div>
+
+  <h2>Why this hits value-based contracts harder than anything else</h2>
+
+  <p>In a traditional fee-for-service model, claims lag is an administrative inconvenience. You did the work. You submitted the claim. You got paid, eventually. The timing of when the data shows up in a report does not change the fundamental transaction.</p>
+
+  <p>Value-based contracts work differently. They are built on forward-looking decisions. Gap closure programs, care management outreach, risk stratification, quality measure tracking, performance reporting. All of these require you to look at what is happening now and decide what to do next.</p>
+
+  <p>The problem is that 'what is happening now' in a claims-based system is always a picture of what happened 60 to 90 days ago.</p>
+
+  <div class="pull-quote">
+    <p>Imagine trying to navigate a city using a GPS that shows you where every car was 90 days ago. The roads are the same. But the traffic is completely different. You would take a different route if you could see what is actually happening right now.</p>
+  </div>
+
+  <p>That is the core problem with lag-unaware VBC operations. The road map is accurate. The real-time conditions are invisible. And most teams are making routing decisions as if the two are the same thing.</p>
+
+  <h2>Four ways incomplete data is breaking real VBC workflows</h2>
+
+  <p>These are not hypothetical. Each of these is a pattern I have seen repeatedly across health plans, ACOs, and provider groups operating in value-based arrangements.</p>
+
+  <div class="question-block">
+    <div class="question-block-label">Where lag shows up in operations</div>
+    <div class="question-item">
+      <div class="question-num">1</div>
+      <div class="question-text"><strong>Risk stratification lists built on outdated conditions.</strong> You pull your high-risk member list in January for Q1 outreach. That list is built on Q3 claims. Some members who were high-risk have since stabilized. Others who have deteriorated are not on the list yet because their recent encounters have not processed. You are calling the wrong people and missing the ones who most need intervention.</div>
+    </div>
+    <div class="question-item">
+      <div class="question-num">2</div>
+      <div class="question-text"><strong>HEDIS gap closure chasing gaps that are already closed.</strong> Your gap report shows 2,000 members missing a diabetes A1C screening. But 400 of those members had the test in the last 60 days. The claim has not processed yet. You are spending care management time and patient outreach budget on people who have already completed the measure. The gap exists in your data, not in reality.</div>
+    </div>
+    <div class="question-item">
+      <div class="question-num">3</div>
+      <div class="question-text"><strong>Quality measure trend reports that are measuring a different period than you think.</strong> Your quality dashboard shows a declining rate on a specific measure. You design and launch a care management program to address it. Three months later the data matures and the original rate was fine. The apparent decline was immature data, not a real trend. You built a program for a problem that did not exist.</div>
+    </div>
+    <div class="question-item">
+      <div class="question-num">4</div>
+      <div class="question-text"><strong>Shared savings projections that ignore unbilled utilization.</strong> Your CFO asks whether the ACO is on track for shared savings at mid-year. The utilization numbers look good. But 25 to 30 percent of the inpatient admits from the last 90 days have not been billed yet. Hospitals have up to 365 days to submit claims. The cost trend you are projecting is systematically understated, and you will not know by how much until the data matures months later.</div>
+    </div>
+  </div>
+
+  <h2>A concrete example: the same report, three months apart</h2>
+
+  <p>Let me make this tangible with a specific scenario that is representative of what we see when we pull the same report at different points in the data maturity cycle.</p>
+
+  <div class="example-box">
+    <div class="example-box-label">Real-world scenario: ED utilization reporting</div>
+    <div class="example-row">
+      <span class="example-badge badge-before">Jan pull</span>
+      <div class="example-text">Care manager pulls Q4 ED utilization report. Report shows <strong>480 emergency department visits</strong> for the attributed population. Team concludes ED utilization is under control. No escalation. No program change.</div>
+    </div>
+    <div class="example-row">
+      <span class="example-badge badge-gap">Reality</span>
+      <div class="example-text">At the time of the January pull, <strong>roughly 30% of Q4 ED visits have not yet been billed or adjudicated</strong>. Some were from small rural ERs that run 60+ day billing cycles. Some pended for coordination of benefits review. None visible in the data yet.</div>
+    </div>
+    <div class="example-row">
+      <span class="example-badge badge-after">Apr pull</span>
+      <div class="example-text">Same report pulled in April on fully matured Q4 data. Actual Q4 ED visits: <strong>632</strong>. The 22% gap between what the team saw and what actually happened was enough to have triggered an ED diversion program. The window to act on Q4 data has now closed.</div>
+    </div>
+  </div>
+
+  <p>The team made a reasonable decision with the data they had. The problem is that nobody flagged that the data was incomplete. The report looked like a complete picture. It was not.</p>
+
+  <h2>The IBNR problem: actuaries know this. Most ops teams do not.</h2>
+
+  <p>In insurance, there is a concept called IBNR: Incurred But Not Reported. It refers to claims that represent real events, real patient encounters, real cost, but have not yet been received and processed by the payer.</p>
+
+  <p>Actuaries account for IBNR every time they set reserves or project future costs. They know that the claims currently in the database are not the full picture. They build a liability for the work that has already happened but has not yet been submitted. This is standard actuarial practice.</p>
+
+  <p>Most VBC operations teams do not have a parallel concept. They look at the claims that are in the database and call that the reality. They build strategies on it.</p>
+
+  <div class="pull-quote">
+    <p>Imagine you run a delivery business and you track every package that has been signed for at the destination. You have a complete record of all delivered packages. But there are another 500 packages still on trucks somewhere between the warehouse and the door. They are real. They represent real cost and real activity. They just do not appear in your count yet. If you make capacity and routing decisions based only on the signed packages, you are systematically undercounting your real volume. That is exactly what most VBC teams are doing with claims data.</p>
+  </div>
+
+  <p>The gap between what is in the system today and what will eventually be in the system is your IBNR exposure. It is not hypothetical. It is real cost and real utilization that has already occurred. It just has not been billed yet.</p>
+
+  <h2>What 'mature' data means and why the 90-day rule is a starting point, not a finish line</h2>
+
+  <p>In healthcare analytics, a claim is considered 'mature' when enough time has passed that the realistic window for submission and adjudication is essentially closed. A common rule of thumb is 90 days after the date of service for most outpatient claims. For inpatient stays, specialty care, and complex cases, the window is longer: 120 to 180 days is more appropriate.</p>
+
+  <p>Before that window closes, your data is incomplete. Not wrong, but incomplete. Like a puzzle with missing pieces. You can see the general shape of the picture, but you would be making a mistake to call it finished.</p>
+
+  <p>The practical implication: if you are measuring performance for a period that ended 30 days ago, you are looking at a puzzle where somewhere between 30 and 40 percent of the pieces are still in transit. If you are measuring a period that ended 120 days ago, you are looking at something very close to the final picture.</p>
+
+  <p>This is why finance teams and actuaries always wait for run-out periods before trusting cost or utilization figures. The data needs time to run out fully before it tells the true story. Most VBC operations workflows are not built with this waiting period in mind.</p>
+
+  <h2>Building a lag-aware VBC operation</h2>
+
+  <p>The goal is not to eliminate lag. You cannot. It is structural to how claims move through the system. The goal is to stop treating immature data as if it were mature, and to build your workflows around what the data can actually tell you at each stage of its maturity.</p>
+
+  <h3>Label every report with its data age, not just its date range</h3>
+  <p>A report covering January through March means nothing on its own. What matters is when the data was pulled. A pull on April 1 is looking at very different data than a pull on July 1, even though both are labeled 'Q1.' Add a data pull date and a maturity indicator to every report so decision-makers know what they are working with.</p>
+
+  <h3>Use completion factors to estimate mature values from immature data</h3>
+  <p>A completion factor is a multiplier that adjusts immature data toward its expected mature value. If historical patterns show that 45-day data is typically 68 percent complete for your population, you can divide the raw number by 0.68 to approximate the mature value. Actuaries use completion factors routinely. VBC analytics teams rarely do. Building them into your reporting layer turns incomplete data into a directional signal rather than a misleading absolute.</p>
+
+  <h3>Never trigger member-level actions on data under 60 days old</h3>
+  <p>Build a rule into your care management workflows: any outreach or action triggered by a clinical gap or utilization flag must be based on a date of service that is at least 60 days in the past. This one rule alone eliminates most of the false-positive gap closure and risk stratification errors described above.</p>
+
+  <h3>Separate your strategic and operational reporting layers</h3>
+  <p>Operational reports, such as this week's admissions or this month's ED visits, are inherently immature data. They are useful for spotting directional trends and recent events but should never be used for performance evaluation or contract benchmarking. Strategic reports, such as annual cost trends, quality measure rates, and shared savings projections, should only be run on data with a full run-out period applied.</p>
+
+  <h3>Build dual views into your dashboards</h3>
+  <p>Show a 'current snapshot' view alongside a 'mature period' view so decision-makers understand they are looking at two different lenses. The current snapshot tells you what is happening. The mature period tells you what actually happened. Both are useful. Treating them as the same thing is where the mistakes happen.</p>
+
+  <h3>Apply an IBNR buffer to all mid-year financial projections</h3>
+  <p>If you are projecting shared savings, risk corridor performance, or total cost of care at any point during the year, you need to explicitly account for claims not yet in the system. Work with your actuarial team to develop an IBNR estimate specific to your population and provider mix. It should be a line item in every mid-year financial projection, not an afterthought.</p>
+
+  <h2>Five questions to ask before trusting any VBC report</h2>
+
+  <div class="question-block">
+    <div class="question-block-label">Data maturity checklist</div>
+    <div class="question-item">
+      <div class="question-num">1</div>
+      <div class="question-text"><strong>What is the data pull date, and how old is the most recent date of service in this report?</strong> These are two different numbers. The pull date tells you when someone ran the query. The most recent date of service tells you how far back the actual data goes. Both matter.</div>
+    </div>
+    <div class="question-item">
+      <div class="question-num">2</div>
+      <div class="question-text"><strong>Has this service period had enough time for most claims to fully adjudicate and load?</strong> If the period ended less than 90 days ago, assume the data is materially incomplete. If it ended less than 45 days ago, the data is directional at best.</div>
+    </div>
+    <div class="question-item">
+      <div class="question-num">3</div>
+      <div class="question-text"><strong>Are these numbers based on incurred dates, paid dates, or load dates?</strong> These are three different things. Incurred date is when the service happened. Paid date is when the payer processed it. Load date is when it appeared in your warehouse. A report filtered by load date can make recent periods look artificially thin and older periods look artificially heavy.</div>
+    </div>
+    <div class="question-item">
+      <div class="question-num">4</div>
+      <div class="question-text"><strong>Have completion factors or any form of lag adjustment been applied?</strong> If not, and the data is under 90 days mature, every cost and utilization number in the report is an undercount. By how much depends on your population and provider mix.</div>
+    </div>
+    <div class="question-item">
+      <div class="question-num">5</div>
+      <div class="question-text"><strong>If this report is being used to trigger a member outreach or care management action, is the underlying data mature enough to act on?</strong> A gap that appears open in 30-day data may already be closed in reality. An action triggered today on immature data may be chasing a problem that no longer exists.</div>
+    </div>
+  </div>
+
+  <hr class="article-divider" />
+
+  <p>Claims data lag is one of those problems that feels invisible until someone makes a decision it cannot support. The team chases gaps that are already closed. The CFO gets surprised by cost trends that were predictable. The care management program targets members who no longer need the intervention. None of these failures look like a data problem from the outside. They look like an execution problem, or a performance problem, or a program design problem. The data gets blamed last, if at all.</p>
+
+  <p>The fix is not a new data warehouse or a faster ETL pipeline. It is building the organization's relationship with data maturity into every workflow that touches VBC decisions. That means labeling reports with their data age, building completion factors into projections, setting rules for when data is mature enough to act on, and having an honest conversation about IBNR at every financial review.</p>
+
+  <p>It is unglamorous work. But it is the difference between a VBC operation that makes decisions on what is actually happening and one that is always, unknowingly, making decisions on what happened three months ago.</p>
+
+  <div class="article-cta">
+    <h3>Is your VBC data pipeline working against you?</h3>
+    <p>We help health plans, ACOs, and provider groups build data maturity frameworks, completion factor models, and reporting layers that reflect what is actually happening, not what happened 90 days ago.</p>
+    <div class="article-cta-btns">
+      <a href="https://calendar.app.google/SgWfVJ3nAmKVeA7N9" target="_blank" rel="noopener" class="btn-white">
+        Book a Call
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+      <a href="../index.html#contact" class="btn-ghost">Send a Message</a>
+    </div>
+  </div>
+
+  <div class="author-card">
+    <img src="../ajay-headshot-3.png" alt="Ajay Chaudhary" class="author-card-photo" />
+    <div>
+      <div class="author-card-name">Ajay Chaudhary</div>
+      <div class="author-card-title">Founder &amp; Principal Consultant, Primex Systems</div>
+      <p class="author-card-bio">15+ years working inside healthcare's data and technology infrastructure. Value-based care contract operations, claims data pipelines, EDI and FHIR integrations, and the analytics workflows that determine what gets measured, what gets acted on, and what gets missed.</p>
+    </div>
+  </div>
+
+</article>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="../index.html" class="nav-logo">
+          <img src="../primex-logo.png" alt="Primex Systems" class="nav-logo-img" />
+          <span class="nav-name">Primex Systems</span>
+        </a>
+        <p class="footer-brand-desc">Healthcare technology consulting, workflow automation, system integrations, and FHIR API compliance. We build systems that work.</p>
+      </div>
+      <div class="fcol">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="../index.html#industries">Who We Serve</a></li>
+          <li><a href="../index.html#how">How We Work</a></li>
+          <li><a href="../index.html#about">About Us</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="../index.html#services">Workflow Automation</a></li>
+          <li><a href="../index.html#services">System Integrations</a></li>
+          <li><a href="../index.html#services">Data &amp; Security</a></li>
+          <li><a href="../index.html#services">FHIR API Implementation</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <h4>Insights</h4>
+        <ul>
+          <li><a href="index.html">All Articles</a></li>
+          <li><a href="claims-data-lag-value-based-contracts.html">Claims Data &amp; VBC</a></li>
+          <li><a href="cms-v28-risk-adjustment-coding-guide.html">Risk Adjustment &amp; VBC</a></li>
+          <li><a href="your-ai-problem-is-a-data-problem.html">AI &amp; Data Strategy</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:hello@primexsystems.org">hello@primexsystems.org</a></li>
+          <li><a href="https://calendar.app.google/SgWfVJ3nAmKVeA7N9" target="_blank" rel="noopener">Book a Call</a></li>
+          <li><a href="../index.html#contact">Send a Message</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Primex Systems. All Rights Reserved.</span>
+      <span>Where Healthcare Workflows Meet Working Systems</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
