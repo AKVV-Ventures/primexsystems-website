@@ -121,14 +121,14 @@
         <span class="logo-name">Primex Systems</span>
       </div>
       <div class="middle">
-        <div class="category"><span class="cat-dot"></span>Risk Adjustment &amp; VBC</div>
-        <h1 class="title">V28 did not break your risk scores. Your documentation did.</h1>
+        <div class="category"><span class="cat-dot"></span>Data &amp; Interoperability</div>
+        <h1 class="title">Healthcare has data standards. None of them are standard.</h1>
       </div>
       <div class="author-row">
         <img src="ajay-headshot-3.png" alt="Ajay Chaudhary" class="author-avatar" />
         <div>
           <div class="author-name">Ajay Chaudhary</div>
-          <div class="author-meta">Founder &amp; Principal Consultant · Jul 9, 2026 · 13 min read</div>
+          <div class="author-meta">Founder &amp; Principal Consultant · Jul 16, 2026 · 12 min read</div>
         </div>
       </div>
     </div>
@@ -152,23 +152,23 @@
 
   // Node definitions — positions as fractions of canvas size
   const nodes = [
-    // Core hub nodes (larger)
-    { x: .38, y: .50, r: 14, label: 'EDI',     bright: true  },
-    { x: .62, y: .28, r: 13, label: 'FHIR',    bright: true  },
-    { x: .72, y: .65, r: 12, label: 'Claims',  bright: true  },
+    // Core standards (larger hubs)
+    { x: .38, y: .48, r: 14, label: 'X12',    bright: true  },
+    { x: .64, y: .26, r: 13, label: 'FHIR',   bright: true  },
+    { x: .70, y: .66, r: 12, label: 'HL7',    bright: true  },
     // Secondary nodes
-    { x: .18, y: .32, r:  8, label: '837',     bright: false },
-    { x: .22, y: .72, r:  8, label: '835',     bright: false },
-    { x: .50, y: .14, r:  7, label: 'R4',      bright: false },
-    { x: .82, y: .18, r:  7, label: 'PA',      bright: false },
-    { x: .88, y: .52, r:  8, label: 'Eligib.', bright: false },
-    { x: .78, y: .84, r:  7, label: 'Auth',    bright: false },
-    { x: .52, y: .82, r:  6, label: '278',     bright: false },
-    { x: .30, y: .88, r:  6, label: '271',     bright: false },
-    { x: .08, y: .55, r:  6, label: 'ERA',     bright: false },
-    { x: .96, y: .36, r:  5, label: 'CMS',     bright: false },
-    { x: .60, y: .52, r:  5, label: 'API',     bright: false },
-    { x: .44, y: .36, r:  5, label: 'NPI',     bright: false },
+    { x: .16, y: .30, r:  8, label: '837',    bright: false },
+    { x: .20, y: .70, r:  8, label: '835',    bright: false },
+    { x: .50, y: .13, r:  7, label: 'R4',     bright: false },
+    { x: .84, y: .18, r:  7, label: 'NPI',    bright: false },
+    { x: .90, y: .52, r:  8, label: 'NCQA',   bright: false },
+    { x: .80, y: .84, r:  7, label: 'NDC',    bright: false },
+    { x: .52, y: .84, r:  6, label: '278',    bright: false },
+    { x: .28, y: .88, r:  6, label: '271',    bright: false },
+    { x: .08, y: .54, r:  6, label: 'ERA',    bright: false },
+    { x: .96, y: .34, r:  5, label: 'CMS',    bright: false },
+    { x: .58, y: .50, r:  5, label: 'ICD-10', bright: false },
+    { x: .44, y: .32, r:  5, label: 'ADT',    bright: false },
   ];
 
   // Edges: pairs of node indices

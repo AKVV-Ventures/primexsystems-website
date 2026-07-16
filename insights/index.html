@@ -199,17 +199,49 @@
 <div class="page-header">
   <p class="page-eyebrow">Insights</p>
   <h1 class="page-title">Thinking in public<br>about healthcare data</h1>
-  <p class="page-desc">Practical perspectives on data quality, system integration, EDI, FHIR compliance, and where AI actually fits in healthcare operations — from people who build these systems for a living.</p>
+  <p class="page-desc">Practical perspectives on data quality, system integration, EDI, FHIR compliance, and where AI actually fits in healthcare operations, from people who build these systems for a living.</p>
 </div>
 
 <div class="articles-wrap">
+
+  <!-- Article: Healthcare Data Standards -->
+  <div class="article-entry">
+    <div class="entry-left">
+      <span class="entry-cat">Data &amp; Interoperability</span>
+      <h2 class="entry-title">Healthcare has data standards. None of them are standard.</h2>
+      <p class="entry-preview">We built X12, HL7, FHIR R4, and a dozen other frameworks for healthcare data interoperability. Every major organization agreed to use them. Then each one implemented them differently. A standard that everyone implements differently is not a standard. It is a suggestion with a formal name. This article traces why the companion guide problem persists, what real standardization would actually require, and why the barrier is not technology. It never was.</p>
+    </div>
+    <div class="entry-card">
+      <div class="entry-card-meta">
+        <div class="entry-card-meta-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><rect x="3" y="4" width="18" height="18" rx="2"/><path stroke-linecap="round" d="M16 2v4M8 2v4M3 10h18"/></svg>
+          July 16, 2026
+        </div>
+        <div class="entry-card-meta-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" d="M12 6v6l4 2"/></svg>
+          12 min read
+        </div>
+      </div>
+      <div class="entry-card-author">
+        <img src="../ajay-headshot-3.png" alt="Ajay Chaudhary" class="entry-card-avatar" />
+        <div>
+          <div class="entry-card-author-name">Ajay Chaudhary</div>
+          <div class="entry-card-author-role">Founder &amp; Principal Consultant</div>
+        </div>
+      </div>
+      <a href="healthcare-data-standards-interoperability.html" class="entry-card-cta">
+        Read Article
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+    </div>
+  </div>
 
   <!-- Article: Claims Data Lag & VBC -->
   <div class="article-entry">
     <div class="entry-left">
       <span class="entry-cat">Value-Based Care &amp; Analytics</span>
       <h2 class="entry-title">Claims data is never current. Your value-based contract assumes it is.</h2>
-      <p class="entry-preview">Every Monday morning, someone at a health plan or provider group pulls a utilization report and makes decisions from it. Most of them do not know they are looking at a picture of the world from 90 days ago. Claims do not travel in real time. They move through a long pipeline — billing, clearinghouse, adjudication, remittance, data warehouse — and by the time a claim shows up in a report, the world has moved on. This article walks through why the lag exists, what it costs VBC operations in concrete terms, why it hits value-based contracts harder than fee-for-service, the IBNR concept that actuaries account for but most ops teams never do, and how to build a lag-aware VBC operation that makes decisions on real data, not a 90-day-old version of it.</p>
+      <p class="entry-preview">Every Monday morning, someone at a health plan or provider group pulls a utilization report and makes decisions from it. Most of them do not know they are looking at a picture of the world from 90 days ago. Claims do not travel in real time. They move through a long pipeline (billing, clearinghouse, adjudication, remittance, data warehouse) and by the time a claim shows up in a report, the world has moved on. This article walks through why the lag exists, what it costs VBC operations in concrete terms, why it hits value-based contracts harder than fee-for-service, the IBNR concept that actuaries account for but most ops teams never do, and how to build a lag-aware VBC operation that makes decisions on real data, not a 90-day-old version of it.</p>
     </div>
     <div class="entry-card">
       <div class="entry-card-meta">
@@ -273,7 +305,7 @@
     <div class="entry-left">
       <span class="entry-cat">Data &amp; AI Strategy</span>
       <h2 class="entry-title">Your AI Problem Is Probably a Data Problem</h2>
-      <p class="entry-preview">Most organizations come to us thinking they have a workflow problem. After digging in, it's almost always a data problem wearing a workflow dress. AI is generating a lot of excitement in healthcare operations right now — and rightfully so. But there's a gap between what AI promises and what it actually delivers when the data feeding it hasn't been addressed first. Before any automation conversation begins, we look at three things: whether the data is accurate, whether it's complete, and whether it's timely. Skipping any one of those questions doesn't slow down the problem — it accelerates it.</p>
+      <p class="entry-preview">Most organizations come to us thinking they have a workflow problem. After digging in, it's almost always a data problem wearing a workflow dress. AI is generating a lot of excitement in healthcare operations right now, and rightfully so. But there's a gap between what AI promises and what it actually delivers when the data feeding it hasn't been addressed first. Before any automation conversation begins, we look at three things: whether the data is accurate, whether it's complete, and whether it's timely. Skipping any one of those questions doesn't slow down the problem. It accelerates it.</p>
     </div>
     <div class="entry-card">
       <div class="entry-card-meta">
@@ -312,7 +344,7 @@
           <img src="../primex-logo.png" alt="Primex Systems" class="nav-logo-img" />
           <span class="nav-name">Primex Systems</span>
         </a>
-        <p class="footer-brand-desc">Healthcare technology consulting — workflow automation, system integrations, and FHIR API compliance. We build systems that work.</p>
+        <p class="footer-brand-desc">Healthcare technology consulting: workflow automation, system integrations, and FHIR API compliance. We build systems that work.</p>
       </div>
       <div class="fcol">
         <h4>Company</h4>
@@ -335,6 +367,9 @@
         <h4>Insights</h4>
         <ul>
           <li><a href="index.html">All Articles</a></li>
+          <li><a href="healthcare-data-standards-interoperability.html">Data &amp; Interoperability</a></li>
+          <li><a href="claims-data-lag-value-based-contracts.html">Claims Data &amp; VBC</a></li>
+          <li><a href="cms-v28-risk-adjustment-coding-guide.html">Risk Adjustment &amp; VBC</a></li>
           <li><a href="your-ai-problem-is-a-data-problem.html">AI &amp; Data Strategy</a></li>
         </ul>
       </div>
