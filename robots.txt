@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /og-card-article.html
 
 Sitemap: https://primexsystems.org/sitemap.xml
