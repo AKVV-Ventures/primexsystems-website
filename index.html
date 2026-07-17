@@ -560,6 +560,19 @@
     }
     .fsub:hover { background: var(--blue-d); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(37,99,235,.55); }
 
+    /* ── Email signup ───────────────────────────────────────────────────────── */
+    .email-signup { background: linear-gradient(135deg, #0d1f48 0%, #112558 55%, #1a3880 100%); padding: 72px 24px; }
+    .email-signup-inner { max-width: 540px; margin: 0 auto; text-align: center; }
+    .email-signup-inner h3 { font-size: 1.5rem; font-weight: 800; color: #fff; letter-spacing: -.02em; margin-bottom: 10px; }
+    .email-signup-inner p { font-size: 15px; color: rgba(255,255,255,.6); line-height: 1.65; margin-bottom: 28px; }
+    .email-form { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+    .email-form input { flex: 1; min-width: 180px; padding: 12px 16px; border: 1.5px solid rgba(255,255,255,.18); border-radius: 10px; background: rgba(255,255,255,.08); color: #fff; font-family: inherit; font-size: 14px; outline: none; transition: border-color .15s; }
+    .email-form input::placeholder { color: rgba(255,255,255,.35); }
+    .email-form input:focus { border-color: rgba(255,255,255,.45); }
+    .email-form button { padding: 12px 22px; background: var(--blue); color: #fff; font-size: 14px; font-weight: 700; border: none; border-radius: 10px; font-family: inherit; cursor: pointer; transition: background .15s; white-space: nowrap; }
+    .email-form button:hover { background: var(--blue-d); }
+    .email-success { display: none; margin-top: 16px; padding: 14px 20px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); border-radius: 10px; color: rgba(255,255,255,.9); font-size: 14px; font-weight: 600; }
+
     /* ── Footer ────────────────────────────────────────────────────────────── */
     footer {
       background: #020813; padding: 52px 48px 32px;
@@ -1723,6 +1736,21 @@
   </div>
 </section>
 
+<!-- ══════════════════════ EMAIL SIGNUP ══════════════════════════════════ -->
+<section class="email-signup">
+  <div class="email-signup-inner">
+    <h3>Stay ahead of healthcare data</h3>
+    <p>New articles on healthcare data, interoperability, and operations. Practical and direct. No filler.</p>
+    <form class="email-form" id="emailForm" action="https://primexsystems.us10.list-manage.com/subscribe/post?u=2db0c6f9f2004a907fc2edced&amp;id=28f539d54c&amp;f_id=006f44e4f0" method="POST">
+      <input type="text" name="FNAME" placeholder="Your name" />
+      <input type="email" name="EMAIL" placeholder="Your email" required />
+      <div style="position:absolute;left:-5000px;" aria-hidden="true"><input type="text" name="b_2db0c6f9f2004a907fc2edced_28f539d54c" tabindex="-1" value="" /></div>
+      <button type="submit">Subscribe</button>
+    </form>
+    <div class="email-success" id="emailSuccess">You're in. We'll send the next article your way.</div>
+  </div>
+</section>
+
 <!-- ═══════════════════════ FOOTER ═══════════════════════════════════════ -->
 <footer>
   <div class="footer-inner">
@@ -1775,6 +1803,26 @@
     </div>
   </div>
 </footer>
+
+<script>
+  // Email signup
+  (function() {
+    const form = document.getElementById('emailForm');
+    if (!form) return;
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const url = form.action.replace('/post?', '/post-json?') + '&c=__mcCb';
+      window.__mcCb = function(data) {
+        delete window.__mcCb;
+        form.style.display = 'none';
+        document.getElementById('emailSuccess').style.display = 'block';
+      };
+      const s = document.createElement('script');
+      s.src = url + '&' + new URLSearchParams(new FormData(form)).toString();
+      document.body.appendChild(s);
+    });
+  })();
+</script>
 
 <script>
   // Nav: scroll class
