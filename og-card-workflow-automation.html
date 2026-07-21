@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>OG Card — Workflow Automation</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 1200px; height: 630px; overflow: hidden; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      width: 1200px;
+      height: 630px;
+      background: linear-gradient(135deg, #060d26 0%, #0b1840 50%, #10225a 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .glow-tl {
+      position: absolute; top: -100px; left: -60px;
+      width: 480px; height: 480px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(37,99,235,.26) 0%, transparent 68%);
+      pointer-events: none;
+    }
+    .accent-bar {
+      position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, #2563eb 0%, #818cf8 55%, transparent 100%);
+    }
+    .layout {
+      position: absolute; inset: 0;
+      display: flex;
+    }
+    .left {
+      width: 620px;
+      flex-shrink: 0;
+      padding: 52px 56px 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      z-index: 2;
+    }
+    .logo-row { display: flex; align-items: center; gap: 12px; }
+    .logo-img { height: 72px; width: auto; }
+    .logo-name { font-size: 32px; font-weight: 700; color: rgba(255,255,255,.88); letter-spacing: -.01em; }
+    .middle { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 28px 0 20px; }
+    .category {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: 11px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase;
+      color: #93c5fd; background: rgba(37,99,235,.22);
+      border: 1px solid rgba(37,99,235,.38); border-radius: 6px;
+      padding: 5px 12px; margin-bottom: 22px; width: fit-content;
+    }
+    .cat-dot { width: 6px; height: 6px; border-radius: 50%; background: #60a5fa; flex-shrink: 0; }
+    .title {
+      font-size: 40px; font-weight: 900; color: #ffffff;
+      letter-spacing: -.03em; line-height: 1.1;
+    }
+    .author-row {
+      display: flex; align-items: center; gap: 14px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,.10);
+    }
+    .author-avatar {
+      width: 62px; height: 62px; border-radius: 50%;
+      object-fit: cover; object-position: center 10%;
+      border: 2px solid rgba(255,255,255,.20); flex-shrink: 0;
+    }
+    .author-name { font-size: 20px; font-weight: 700; color: rgba(255,255,255,.90); margin-bottom: 4px; }
+    .author-meta { font-size: 17px; color: rgba(255,255,255,.44); }
+    .right {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+    canvas {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%;
+    }
+    .right-fade {
+      position: absolute; top: 0; left: 0; bottom: 0; width: 120px;
+      background: linear-gradient(to right, #0b1840, transparent);
+      z-index: 2;
+      pointer-events: none;
+    }
+    .domain {
+      position: absolute; bottom: 22px; right: 28px;
+      font-size: 12px; font-weight: 600;
+      color: rgba(255,255,255,.25); letter-spacing: .05em; z-index: 3;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="glow-tl"></div>
+  <div class="accent-bar"></div>
+
+  <div class="layout">
+
+    <div class="left">
+      <div class="logo-row">
+        <img src="primex-logo.png" alt="Primex Systems" class="logo-img" />
+        <span class="logo-name">Primex Systems</span>
+      </div>
+      <div class="middle">
+        <div class="category"><span class="cat-dot"></span>Workflow Automation</div>
+        <h1 class="title">Automate the work,<br>not the judgment.</h1>
+      </div>
+      <div class="author-row">
+        <img src="ajay-headshot-3.png" alt="Ajay Chaudhary" class="author-avatar" />
+        <div>
+          <div class="author-name">Ajay Chaudhary</div>
+          <div class="author-meta">Founder &amp; Principal Consultant · Jul 20, 2026 · 12 min read</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="right">
+      <canvas id="viz"></canvas>
+      <div class="right-fade"></div>
+      <div class="domain">primexsystems.org</div>
+    </div>
+
+  </div>
+
+<script>
+  const canvas = document.getElementById('viz');
+  const W = canvas.offsetWidth;
+  const H = canvas.offsetHeight;
+  canvas.width = W * 2;
+  canvas.height = H * 2;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(2, 2);
+
+  // Node types: blue (automation), amber (human checkpoint), output (blue-green)
+  const nodes = [
+    // Human checkpoint — center, amber, large
+    { x: .52, y: .50, r: 20, label: 'Human\nReview', type: 'amber' },
+
+    // Automation inputs — left cluster, blue
+    { x: .18, y: .18, r: 12, label: 'Prior Auth',   type: 'blue-bright' },
+    { x: .12, y: .50, r: 12, label: 'Mbr Merge',    type: 'blue-bright' },
+    { x: .18, y: .82, r: 12, label: 'HCC Coding',   type: 'blue-bright' },
+    { x: .36, y: .25, r:  8, label: 'Rules Engine', type: 'blue-dim' },
+    { x: .34, y: .74, r:  8, label: 'Fax OCR',      type: 'blue-dim' },
+    { x: .04, y: .32, r:  7, label: 'EDI 278',      type: 'blue-dim' },
+    { x: .04, y: .68, r:  7, label: 'Chart PDF',    type: 'blue-dim' },
+    { x: .40, y: .50, r:  9, label: 'Confidence\nScore', type: 'blue-dim' },
+
+    // Output nodes — right cluster, lighter blue
+    { x: .74, y: .26, r: 10, label: 'Approved',  type: 'blue-bright' },
+    { x: .76, y: .58, r: 10, label: 'Audit Log', type: 'blue-bright' },
+    { x: .88, y: .36, r:  7, label: 'CMS',       type: 'blue-dim' },
+    { x: .90, y: .62, r:  7, label: 'Provider',  type: 'blue-dim' },
+    { x: .78, y: .84, r:  6, label: 'Payer',     type: 'blue-dim' },
+  ];
+
+  // Edges — inputs into human checkpoint, human checkpoint into outputs
+  const edges = [
+    // Automation → human review (index 0)
+    [1,0],[2,0],[3,0],[4,0],[5,0],[6,1],[7,3],[8,0],
+    // Human review → outputs
+    [0,9],[0,10],[0,11],[0,12],
+    // Output connections
+    [9,11],[10,12],[11,12],[9,10],[12,13],
+    // Input cross-connections
+    [4,8],[5,8],[6,2],[7,5],[1,4],[3,5],
+  ];
+
+  const px = nodes.map(n => ({ ...n, px: n.x * W, py: n.y * H }));
+
+  // Draw edges
+  edges.forEach(([a, b]) => {
+    const na = px[a], nb = px[b];
+    const isAmberEdge = na.type === 'amber' || nb.type === 'amber';
+    const grad = ctx.createLinearGradient(na.px, na.py, nb.px, nb.py);
+    if (isAmberEdge) {
+      grad.addColorStop(0, 'rgba(217,119,6,.50)');
+      grad.addColorStop(1, 'rgba(37,99,235,.28)');
+    } else {
+      grad.addColorStop(0, 'rgba(37,99,235,.50)');
+      grad.addColorStop(1, 'rgba(129,140,248,.22)');
+    }
+    ctx.beginPath();
+    ctx.moveTo(na.px, na.py);
+    ctx.lineTo(nb.px, nb.py);
+    ctx.strokeStyle = grad;
+    ctx.lineWidth = isAmberEdge ? 1.6 : 1.1;
+    ctx.stroke();
+  });
+
+  // Draw nodes
+  px.forEach(n => {
+    const isAmber = n.type === 'amber';
+    const isBright = n.type === 'blue-bright' || isAmber;
+
+    // Glow
+    const glowColor = isAmber ? 'rgba(217,119,6,' : 'rgba(37,99,235,';
+    const glow = ctx.createRadialGradient(n.px, n.py, n.r * .4, n.px, n.py, n.r * 3.2);
+    glow.addColorStop(0, glowColor + (isBright ? '.40)' : '.20)'));
+    glow.addColorStop(1, glowColor + '0)');
+    ctx.beginPath();
+    ctx.arc(n.px, n.py, n.r * 3.2, 0, Math.PI * 2);
+    ctx.fillStyle = glow;
+    ctx.fill();
+
+    // Fill
+    const fill = ctx.createRadialGradient(n.px - n.r * .3, n.py - n.r * .3, 0, n.px, n.py, n.r);
+    if (isAmber) {
+      fill.addColorStop(0, '#f59e0b');
+      fill.addColorStop(1, '#b45309');
+    } else if (n.type === 'blue-bright') {
+      fill.addColorStop(0, '#4f86f7');
+      fill.addColorStop(1, '#1d4ed8');
+    } else {
+      fill.addColorStop(0, '#2d5fd4');
+      fill.addColorStop(1, '#1a3aa8');
+    }
+    ctx.beginPath();
+    ctx.arc(n.px, n.py, n.r, 0, Math.PI * 2);
+    ctx.fillStyle = fill;
+    ctx.fill();
+
+    // Border
+    ctx.beginPath();
+    ctx.arc(n.px, n.py, n.r, 0, Math.PI * 2);
+    ctx.strokeStyle = isAmber
+      ? 'rgba(253,230,138,.80)'
+      : (isBright ? 'rgba(147,197,253,.70)' : 'rgba(147,197,253,.32)');
+    ctx.lineWidth = isAmber ? 2.2 : (isBright ? 1.8 : 1.1);
+    ctx.stroke();
+
+    // Label (handle multi-line with \n)
+    const lines = n.label.split('\n');
+    const fontSize = isAmber ? 10 : (isBright ? 10 : 9);
+    const fontWeight = isBright ? 700 : 600;
+    ctx.font = `${fontWeight} ${fontSize}px Inter, system-ui, sans-serif`;
+    ctx.fillStyle = isAmber ? 'rgba(255,255,255,1)' : (isBright ? 'rgba(255,255,255,.95)' : 'rgba(255,255,255,.72)');
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    const lineH = fontSize * 1.3;
+    const startY = n.py - ((lines.length - 1) * lineH) / 2;
+    lines.forEach((line, i) => {
+      ctx.fillText(line, n.px, startY + i * lineH);
+    });
+  });
+</script>
+
+</body>
+</html>
