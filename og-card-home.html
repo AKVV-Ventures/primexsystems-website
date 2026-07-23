@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>OG Card — Homepage</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 1200px; height: 630px; overflow: hidden; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      width: 1200px; height: 630px;
+      background: linear-gradient(135deg, #060d26 0%, #0b1840 50%, #10225a 100%);
+      position: relative; overflow: hidden;
+    }
+    .glow-tl {
+      position: absolute; top: -100px; left: -60px;
+      width: 480px; height: 480px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(37,99,235,.26) 0%, transparent 68%);
+      pointer-events: none;
+    }
+    .accent-bar {
+      position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, #2563eb 0%, #818cf8 55%, transparent 100%);
+    }
+    .layout { position: absolute; inset: 0; display: flex; }
+
+    /* Left column */
+    .left {
+      width: 620px; flex-shrink: 0;
+      padding: 48px 56px 44px;
+      display: flex; flex-direction: column;
+      justify-content: space-between;
+      position: relative; z-index: 2;
+    }
+    .logo-row { display: flex; align-items: center; gap: 12px; }
+    .logo-img { height: 72px; width: auto; }
+    .logo-name { font-size: 32px; font-weight: 700; color: rgba(255,255,255,.88); letter-spacing: -.01em; }
+
+    /* Middle: tagline + services */
+    .middle { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 24px 0 16px; }
+    .tagline {
+      font-size: 13px; font-weight: 700; letter-spacing: .10em; text-transform: uppercase;
+      color: rgba(255,255,255,.38); margin-bottom: 18px;
+    }
+    .headline {
+      font-size: 28px; font-weight: 900; color: #ffffff;
+      letter-spacing: -.03em; line-height: 1.2; margin-bottom: 28px;
+    }
+    .services { display: flex; flex-direction: column; gap: 11px; }
+    .service-row { display: flex; align-items: center; gap: 12px; }
+    .service-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #2563eb; flex-shrink: 0;
+      box-shadow: 0 0 6px rgba(37,99,235,.70);
+    }
+    .service-label {
+      font-size: 16px; font-weight: 600; color: rgba(255,255,255,.80);
+      letter-spacing: -.01em;
+    }
+
+    /* Bottom: domain */
+    .bottom-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 20px; border-top: 1px solid rgba(255,255,255,.10);
+    }
+    .domain-label { font-size: 14px; font-weight: 600; color: rgba(255,255,255,.30); letter-spacing: .04em; }
+    .location-label { font-size: 13px; color: rgba(255,255,255,.22); }
+
+    /* Right canvas */
+    .right { flex: 1; position: relative; overflow: hidden; }
+    canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+    .right-fade {
+      position: absolute; top: 0; left: 0; bottom: 0; width: 130px;
+      background: linear-gradient(to right, #0b1840, transparent);
+      z-index: 2; pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="glow-tl"></div>
+  <div class="accent-bar"></div>
+
+  <div class="layout">
+    <div class="left">
+      <div class="logo-row">
+        <img src="primex-logo.png" alt="Primex Systems" class="logo-img" />
+        <span class="logo-name">Primex Systems</span>
+      </div>
+      <div class="middle">
+        <div class="tagline">Healthcare Technology Consulting</div>
+        <div class="headline">Where healthcare workflows<br>meet working systems.</div>
+        <div class="services">
+          <div class="service-row">
+            <div class="service-dot"></div>
+            <div class="service-label">Workflow Automation</div>
+          </div>
+          <div class="service-row">
+            <div class="service-dot"></div>
+            <div class="service-label">System Integrations &amp; EDI</div>
+          </div>
+          <div class="service-row">
+            <div class="service-dot"></div>
+            <div class="service-label">FHIR API Implementation</div>
+          </div>
+          <div class="service-row">
+            <div class="service-dot"></div>
+            <div class="service-label">Data Infrastructure &amp; Security</div>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-row">
+        <div class="domain-label">primexsystems.org</div>
+        <div class="location-label">Los Angeles, CA</div>
+      </div>
+    </div>
+
+    <div class="right">
+      <canvas id="viz"></canvas>
+      <div class="right-fade"></div>
+    </div>
+  </div>
+
+<script>
+  const canvas = document.getElementById('viz');
+  const W = canvas.offsetWidth;
+  const H = canvas.offsetHeight;
+  canvas.width = W * 2;
+  canvas.height = H * 2;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(2, 2);
+
+  const nodes = [
+    // Core hubs
+    { x: .42, y: .50, r: 14, label: 'Health Plan',  bright: true  },
+    { x: .68, y: .28, r: 13, label: 'FHIR R4',      bright: true  },
+    { x: .72, y: .68, r: 12, label: 'Provider',     bright: true  },
+    // Secondary
+    { x: .18, y: .25, r:  8, label: 'Prior Auth',   bright: false },
+    { x: .16, y: .55, r:  8, label: 'EDI 837',      bright: false },
+    { x: .20, y: .80, r:  7, label: 'EDI 835',      bright: false },
+    { x: .52, y: .14, r:  7, label: 'CMS',          bright: false },
+    { x: .86, y: .20, r:  7, label: 'EHR/EMR',      bright: false },
+    { x: .92, y: .52, r:  8, label: 'Clearinghouse',bright: false },
+    { x: .84, y: .82, r:  7, label: 'Member',       bright: false },
+    { x: .56, y: .82, r:  6, label: 'PBM',          bright: false },
+    { x: .36, y: .28, r:  6, label: 'HCC',          bright: false },
+    { x: .96, y: .36, r:  5, label: 'NPI',          bright: false },
+    { x: .58, y: .52, r:  5, label: 'ICD-10',       bright: false },
+    { x: .38, y: .70, r:  5, label: 'ADT',          bright: false },
+  ];
+
+  const edges = [
+    [0,1],[0,2],[0,3],[0,4],[0,5],[0,11],[0,13],[0,14],
+    [1,6],[1,7],[1,12],[1,13],
+    [2,7],[2,8],[2,9],[2,10],
+    [3,4],[4,5],[5,14],[6,7],[7,8],[8,9],[9,10],[10,14],[11,13],
+  ];
+
+  const px = nodes.map(n => ({ ...n, px: n.x * W, py: n.y * H }));
+
+  edges.forEach(([a, b]) => {
+    const na = px[a], nb = px[b];
+    const grad = ctx.createLinearGradient(na.px, na.py, nb.px, nb.py);
+    grad.addColorStop(0, 'rgba(37,99,235,.55)');
+    grad.addColorStop(1, 'rgba(129,140,248,.22)');
+    ctx.beginPath();
+    ctx.moveTo(na.px, na.py);
+    ctx.lineTo(nb.px, nb.py);
+    ctx.strokeStyle = grad;
+    ctx.lineWidth = 1.2;
+    ctx.stroke();
+  });
+
+  px.forEach(n => {
+    const glow = ctx.createRadialGradient(n.px, n.py, n.r * .4, n.px, n.py, n.r * 2.8);
+    glow.addColorStop(0, n.bright ? 'rgba(37,99,235,.35)' : 'rgba(37,99,235,.18)');
+    glow.addColorStop(1, 'rgba(37,99,235,0)');
+    ctx.beginPath();
+    ctx.arc(n.px, n.py, n.r * 2.8, 0, Math.PI * 2);
+    ctx.fillStyle = glow;
+    ctx.fill();
+
+    const fill = ctx.createRadialGradient(n.px - n.r * .3, n.py - n.r * .3, 0, n.px, n.py, n.r);
+    fill.addColorStop(0, n.bright ? '#4f86f7' : '#2d5fd4');
+    fill.addColorStop(1, n.bright ? '#1d4ed8' : '#1a3aa8');
+    ctx.beginPath();
+    ctx.arc(n.px, n.py, n.r, 0, Math.PI * 2);
+    ctx.fillStyle = fill;
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.arc(n.px, n.py, n.r, 0, Math.PI * 2);
+    ctx.strokeStyle = n.bright ? 'rgba(147,197,253,.70)' : 'rgba(147,197,253,.35)';
+    ctx.lineWidth = n.bright ? 1.8 : 1.2;
+    ctx.stroke();
+
+    ctx.font = `${n.bright ? 700 : 600} ${n.bright ? 10 : 9}px Inter, system-ui, sans-serif`;
+    ctx.fillStyle = n.bright ? 'rgba(255,255,255,.95)' : 'rgba(255,255,255,.75)';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(n.label, n.px, n.py);
+  });
+</script>
+
+</body>
+</html>
