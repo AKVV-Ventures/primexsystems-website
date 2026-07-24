@@ -195,6 +195,14 @@
       background: none;
       -webkit-text-fill-color: #059669;
     }
+    .hero-rotate {
+      display: inline-block;
+      transition: opacity .35s ease, transform .35s ease;
+    }
+    .hero-rotate.out {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
     .hero-sub {
       font-size: 1.125rem; color: #475569;
       line-height: 1.72; max-width: 520px; margin: 0 0 44px;
@@ -978,7 +986,7 @@
     </div>
     <h1 class="hero-h1">
       Where Healthcare Workflows<br>
-      <span>Meet Working Systems</span>
+      <span class="hero-rotate">Meet Working Systems.</span>
     </h1>
     <p class="hero-sub">
       We apply AI-powered automation and deep technical expertise to the systems healthcare organizations depend on — EDI pipelines, FHIR APIs, and intelligent workflows built for compliance, operational scale, and long-term maintainability.
@@ -2213,6 +2221,27 @@
   });
 </script>
 
+<script>
+  (function () {
+    const phrases = [
+      'Meet Working Systems.',
+      'Get Automated.',
+      'Stop Breaking.',
+      'Flow Without Friction.'
+    ];
+    const el = document.querySelector('.hero-rotate');
+    if (!el) return;
+    let i = 0;
+    setInterval(function () {
+      el.classList.add('out');
+      setTimeout(function () {
+        i = (i + 1) % phrases.length;
+        el.textContent = phrases[i];
+        el.classList.remove('out');
+      }, 360);
+    }, 3500);
+  })();
+</script>
 
 </body>
 </html>
