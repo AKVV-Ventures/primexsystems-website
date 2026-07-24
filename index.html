@@ -197,11 +197,16 @@
     }
     .hero-rotate {
       display: inline-block;
-      transition: opacity .35s ease, transform .35s ease;
     }
-    .hero-rotate.out {
-      opacity: 0;
-      transform: translateY(-10px);
+    .hero-rotate::after {
+      content: '|';
+      margin-left: 2px;
+      font-weight: 300;
+      animation: blink-cursor .75s step-end infinite;
+    }
+    @keyframes blink-cursor {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
     }
     .hero-sub {
       font-size: 1.125rem; color: #475569;
@@ -986,7 +991,7 @@
     </div>
     <h1 class="hero-h1">
       Where Healthcare Workflows<br>
-      <span class="hero-rotate">Meet Working Systems.</span>
+      <span class="hero-rotate"></span>
     </h1>
     <p class="hero-sub">
       We apply AI-powered automation and deep technical expertise to the systems healthcare organizations depend on — EDI pipelines, FHIR APIs, and intelligent workflows built for compliance, operational scale, and long-term maintainability.
@@ -2231,15 +2236,37 @@
     ];
     const el = document.querySelector('.hero-rotate');
     if (!el) return;
-    let i = 0;
-    setInterval(function () {
-      el.classList.add('out');
-      setTimeout(function () {
-        i = (i + 1) % phrases.length;
-        el.textContent = phrases[i];
-        el.classList.remove('out');
-      }, 360);
-    }, 3500);
+
+    let pi = 0, ci = 0, deleting = false;
+
+    el.textContent = '';
+
+    function tick() {
+      const phrase = phrases[pi];
+
+      if (deleting) {
+        ci--;
+        el.textContent = phrase.slice(0, ci);
+        if (ci === 0) {
+          deleting = false;
+          pi = (pi + 1) % phrases.length;
+          setTimeout(tick, 320);
+          return;
+        }
+        setTimeout(tick, 40);
+      } else {
+        ci++;
+        el.textContent = phrase.slice(0, ci);
+        if (ci === phrase.length) {
+          setTimeout(function () { deleting = true; tick(); }, 2600);
+          return;
+        }
+        // Slight random variance so it feels hand-typed
+        setTimeout(tick, 18 + Math.random() * 12);
+      }
+    }
+
+    setTimeout(tick, 800);
   })();
 </script>
 
