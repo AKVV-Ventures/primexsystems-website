@@ -11,18 +11,18 @@
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
       -webkit-font-smoothing: antialiased;
       width: 1200px; height: 630px;
-      background: linear-gradient(135deg, #060d26 0%, #0b1840 50%, #10225a 100%);
+      background: linear-gradient(135deg, #022c22 0%, #053d2e 50%, #064e3b 100%);
       position: relative; overflow: hidden;
     }
     .glow-tl {
       position: absolute; top: -100px; left: -60px;
       width: 480px; height: 480px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(37,99,235,.26) 0%, transparent 68%);
+      background: radial-gradient(circle, rgba(5,150,105,.28) 0%, transparent 68%);
       pointer-events: none;
     }
     .accent-bar {
       position: absolute; top: 0; left: 0; right: 0; height: 4px;
-      background: linear-gradient(90deg, #2563eb 0%, #818cf8 55%, transparent 100%);
+      background: linear-gradient(90deg, #34d399 0%, #059669 55%, transparent 100%);
     }
     .layout { position: absolute; inset: 0; display: flex; }
 
@@ -52,8 +52,8 @@
     .service-row { display: flex; align-items: center; gap: 12px; }
     .service-dot {
       width: 7px; height: 7px; border-radius: 50%;
-      background: #2563eb; flex-shrink: 0;
-      box-shadow: 0 0 6px rgba(37,99,235,.70);
+      background: #34d399; flex-shrink: 0;
+      box-shadow: 0 0 6px rgba(52,211,153,.70);
     }
     .service-label {
       font-size: 16px; font-weight: 600; color: rgba(255,255,255,.80);
@@ -73,7 +73,7 @@
     canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
     .right-fade {
       position: absolute; top: 0; left: 0; bottom: 0; width: 130px;
-      background: linear-gradient(to right, #0b1840, transparent);
+      background: linear-gradient(to right, #053d2e, transparent);
       z-index: 2; pointer-events: none;
     }
   </style>
@@ -86,7 +86,7 @@
   <div class="layout">
     <div class="left">
       <div class="logo-row">
-        <img src="primex-logo.png" alt="Primex Systems" class="logo-img" />
+        <img src="primex-logo.png" alt="Primex Systems" class="logo-img" style="filter:hue-rotate(-100deg) saturate(1.2) brightness(1.05)" />
         <span class="logo-name">Primex Systems</span>
       </div>
       <div class="middle">
@@ -164,8 +164,8 @@
   edges.forEach(([a, b]) => {
     const na = px[a], nb = px[b];
     const grad = ctx.createLinearGradient(na.px, na.py, nb.px, nb.py);
-    grad.addColorStop(0, 'rgba(37,99,235,.55)');
-    grad.addColorStop(1, 'rgba(129,140,248,.22)');
+    grad.addColorStop(0, 'rgba(52,211,153,.55)');
+    grad.addColorStop(1, 'rgba(5,150,105,.22)');
     ctx.beginPath();
     ctx.moveTo(na.px, na.py);
     ctx.lineTo(nb.px, nb.py);
@@ -176,16 +176,16 @@
 
   px.forEach(n => {
     const glow = ctx.createRadialGradient(n.px, n.py, n.r * .4, n.px, n.py, n.r * 2.8);
-    glow.addColorStop(0, n.bright ? 'rgba(37,99,235,.35)' : 'rgba(37,99,235,.18)');
-    glow.addColorStop(1, 'rgba(37,99,235,0)');
+    glow.addColorStop(0, n.bright ? 'rgba(5,150,105,.40)' : 'rgba(5,150,105,.20)');
+    glow.addColorStop(1, 'rgba(5,150,105,0)');
     ctx.beginPath();
     ctx.arc(n.px, n.py, n.r * 2.8, 0, Math.PI * 2);
     ctx.fillStyle = glow;
     ctx.fill();
 
     const fill = ctx.createRadialGradient(n.px - n.r * .3, n.py - n.r * .3, 0, n.px, n.py, n.r);
-    fill.addColorStop(0, n.bright ? '#4f86f7' : '#2d5fd4');
-    fill.addColorStop(1, n.bright ? '#1d4ed8' : '#1a3aa8');
+    fill.addColorStop(0, n.bright ? '#34d399' : '#059669');
+    fill.addColorStop(1, n.bright ? '#059669' : '#047857');
     ctx.beginPath();
     ctx.arc(n.px, n.py, n.r, 0, Math.PI * 2);
     ctx.fillStyle = fill;
@@ -193,7 +193,7 @@
 
     ctx.beginPath();
     ctx.arc(n.px, n.py, n.r, 0, Math.PI * 2);
-    ctx.strokeStyle = n.bright ? 'rgba(147,197,253,.70)' : 'rgba(147,197,253,.35)';
+    ctx.strokeStyle = n.bright ? 'rgba(52,211,153,.80)' : 'rgba(52,211,153,.40)';
     ctx.lineWidth = n.bright ? 1.8 : 1.2;
     ctx.stroke();
 
